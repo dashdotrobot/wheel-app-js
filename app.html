@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <title>Hello, world!</title>
+</head>
+<body>
+
+
+
+<div class="container">
+  <h3>Bicycle wheel app</h3>
+  <div class="row">
+    <div class="col-4">
+
+      <!-- Toolbar Navigation Tabs -->
+      <ul class="nav nav-tabs" id="toolsTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="rim-tab" data-toggle="tab" href="#rim" role="tab" aria-controls="rim" aria-selected="true">Rim</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="hub-tab" data-toggle="tab" href="#hub" role="tab" aria-controls="hub" aria-selected="false">Hub</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="spokes-tab" data-toggle="tab" href="#spokes" role="tab" aria-controls="spokes" aria-selected="false">Spokes</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="toolsContents">
+        <!-- RIM TOOLBAR -->
+        <div class="tab-pane fade show active" id="rim" role="tabpanel" aria-labelledby="rim-tab">Rim tools</div>
+
+        <!-- HUB TOOLBAR -->
+        <div class="tab-pane fade" id="hub" role="tabpanel" aria-labelledby="hub-tab">Hub tools</div>
+
+        <!-- SPOKES TOOLBAR -->
+        <div class="tab-pane fade" id="spokes" role="tabpanel" aria-labelledby="spokes-tab">Spokes tools</div>
+      </div>
+
+    </div>
+    <div class="col-8">
+
+      <!-- Results navigation tabs -->
+      <ul class="nav nav-tabs" id="resultsTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="plots-tab" data-toggle="tab" href="#plots" role="tab" aria-controls="plots" aria-selected="true">Plots</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Results</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="resultsContents">
+
+        <!-- Results: Plots -->
+        <div class="tab-pane fade show active" id="plots" role="tabpanel" aria-labelledby="plots-tab">
+          Plots
+          <div id="tension-plot" style="width: 100%; height: 300px; border: 1px solid black;"></div>
+        </div>
+
+        <!-- Results: Summary -->
+        <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">Summary results</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+<script>
+
+var default_wheel = {
+  'hub': {
+    'diameter': 0.05,
+    'width_nds': 0.025,
+    'width_ds': 0.025},
+  'rim': {
+    'radius': 0.3,
+    'young_mod': 69e9,
+    'shear_mod': 26e9,
+    'density': 2700.,
+    'section_type': 'general',
+    'section_params': {
+      'area': 100e-6,
+      'I_rad': 100 / 69e9,
+      'I_lat': 200 / 69e9,
+      'J_tor': 25 / 26e9,
+      'I_warp': 0.}},
+  'spokes': {
+    'num': 36,
+    'num_cross': 3,
+    'diameter': 1.8e-3,
+    'young_mod': 210e9,
+    'density': 8000.,
+    'offset': 0.,
+    'tension': 0.}
+}
+
+
+TESTER = document.getElementById('tension-plot');
+Plotly.plot(TESTER,
+[{
+  x: [1, 3, 5],
+  y: [2, 5, 3],
+  type: 'bar'
+}, {
+  x: [0, 2, 4],
+  y: [4, 4, 1],
+  type: 'bar'
+}] );
+
+
+
+
+
+</script>
+
+</body>
+</html>
