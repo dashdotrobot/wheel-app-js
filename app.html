@@ -86,48 +86,62 @@
 <script>
 
 var default_wheel = {
-  'hub': {
-    'diameter': 0.05,
-    'width_nds': 0.025,
-    'width_ds': 0.025},
-  'rim': {
-    'radius': 0.3,
-    'young_mod': 69e9,
-    'shear_mod': 26e9,
-    'density': 2700.,
-    'section_type': 'general',
-    'section_params': {
-      'area': 100e-6,
-      'I_rad': 100 / 69e9,
-      'I_lat': 200 / 69e9,
-      'J_tor': 25 / 26e9,
-      'I_warp': 0.}},
-  'spokes': {
-    'num': 36,
-    'num_cross': 3,
-    'diameter': 1.8e-3,
-    'young_mod': 210e9,
-    'density': 8000.,
-    'offset': 0.,
-    'tension': 0.},
-  'result': {}
+  'wheel': {
+      'hub': {
+      'diameter': 0.05,
+      'width_nds': 0.025,
+      'width_ds': 0.025},
+    'rim': {
+      'radius': 0.3,
+      'young_mod': 69e9,
+      'shear_mod': 26e9,
+      'density': 2700.,
+      'section_type': 'general',
+      'section_params': {
+        'area': 100e-6,
+        'I_rad': 100 / 69e9,
+        'I_lat': 200 / 69e9,
+        'J_tor': 25 / 26e9,
+        'I_warp': 0.}},
+    'spokes': {
+      'num': 36,
+      'num_cross': 3,
+      'diameter': 1.8e-3,
+      'young_mod': 210e9,
+      'density': 8000.,
+      'offset': 0.,
+      'tension': 0.}},
 }
 
+function plot_tensions(data) {
+  console.log(data)
+
+  plot_canvas = document.getElementById('tension-plot');
+
+  Plotly.newPlot(plot_canvas, [{
+    x: data['tension']['spokes'],
+    y: data['tension']['tension'],
+    type: 'bar'
+  }] );
+}
 
 $('#btnPressMe').on('click', function () {
 
+  post_data = $.extend({}, default_wheel)
+
+  post_data['tension'] = {
+    'forces': [{'location': 3.1415, 'magnitude': [0., 1., 0., 0.]}]
+  }
+
   $.post({
-    url: 'http://localhost:5000/tensions',
-    data: JSON.stringify(default_wheel),
+    url: 'http://localhost:5000/calculate',
+    data: JSON.stringify(post_data),
     dataType: 'json',
     contentType: 'application/json',
     success: function (result) {
-      console.log(result);
+      plot_tensions(result);
     },
-    error: function (xhr, ajaxOptions, thrownError) {
-      alert(xhr.status);
-      alert(thrownError);
-    }
+    error: function (xhr, ajaxOptions, thrownError) {}
   });
 
 })
