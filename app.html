@@ -33,16 +33,55 @@
       </ul>
 
       <div class="tab-content" id="toolsContents">
-        <!-- RIM TOOLBAR -->
-        <div class="tab-pane fade show active" id="rim" role="tabpanel" aria-labelledby="rim-tab">Rim tools</div>
 
-          <button type="button" id="btnPressMe" class="btn btn-success">Press me!</button>
+        <!-- RIM TOOLBAR -->
+        <div class="tab-pane fade show active" id="rim" role="tabpanel" aria-labelledby="rim-tab">
+
+          <div class="form-group">
+            <select class="form-control form-control-sm" id="rimSize">
+              <option>700C/29er/28" (622)</option>
+              <option>27" frac (630)</option>
+              <option>650B (584)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="rimMatl">
+              <label class="btn btn-secondary active">
+                <input type="radio" name="rimMatl" id="rimMatlAlloy" autocomplete="off" checked>Alloy
+              </label>
+              <label class="btn btn-secondary">
+                <input type="radio" name="rimMatl" id="rimMatlSteel" autocomplete="off">Steel
+              </label>
+              <label class="btn btn-secondary">
+                <input type="radio" name="rimMatl" id="rimMatlCarbon" autocomplete="off">Carbon
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="rimMass">Mass [grams]</label>
+            <input type="range" class="form-control-range" id="rimMass">
+
+            <label for="rimRadStiff">Radial stiffness [N-m^2]</label>
+            <input type="range" class="form-control-range" id="rimRadStiff">
+
+            <label for="rimLatStiff">Lateral stiffness [N-m^2]</label>
+            <input type="range" class="form-control-range" id="rimLatStiff">
+
+            <label for="rimTorStiff">Torsional stiffness [N-m^2]</label>
+            <input type="range" class="form-control-range" id="rimTorStiff">
+          </div>
+
+        </div>
 
         <!-- HUB TOOLBAR -->
         <div class="tab-pane fade" id="hub" role="tabpanel" aria-labelledby="hub-tab">Hub tools</div>
 
         <!-- SPOKES TOOLBAR -->
         <div class="tab-pane fade" id="spokes" role="tabpanel" aria-labelledby="spokes-tab">Spokes tools</div>
+
+        <div><button type="button" id="btnPressMe" class="btn btn-success">Press me!</button></div>
       </div>
 
     </div>
@@ -63,7 +102,7 @@
         <!-- Results: Plots -->
         <div class="tab-pane fade show active" id="plots" role="tabpanel" aria-labelledby="plots-tab">
           Plots
-          <div id="tension-plot" style="width: 100%; height: 300px; border: 1px solid black;"></div>
+          <div id="tension-plot" style="height: 300px; border: 1px solid black;"></div>
         </div>
 
         <!-- Results: Summary -->
