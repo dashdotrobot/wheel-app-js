@@ -5,87 +5,204 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
   <title>Hello, world!</title>
 </head>
 <body>
 
-
-
 <div class="container">
   <h3>Bicycle wheel app</h3>
   <div class="row">
-    <div class="col-4">
+    <div class="col-3">
 
       <!-- Toolbar Navigation Tabs -->
       <ul class="nav nav-tabs" id="toolsTab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="rim-tab" data-toggle="tab" href="#rim" role="tab" aria-controls="rim" aria-selected="true">Rim</a>
+          <a class="nav-link active" id="tabRim" data-toggle="tab" href="#panelRim" role="tab" aria-controls="panelRim" aria-selected="true">Rim</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="hub-tab" data-toggle="tab" href="#hub" role="tab" aria-controls="hub" aria-selected="false">Hub</a>
+          <a class="nav-link" id="tabHub" data-toggle="tab" href="#panelHub" role="tab" aria-controls="panelHub" aria-selected="false">Hub</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="spokes-tab" data-toggle="tab" href="#spokes" role="tab" aria-controls="spokes" aria-selected="false">Spokes</a>
+          <a class="nav-link" id="tabSpokes" data-toggle="tab" href="#panelSpokes" role="tab" aria-controls="panelSpokes" aria-selected="false">Spokes</a>
         </li>
       </ul>
 
       <div class="tab-content" id="toolsContents">
 
         <!-- RIM TOOLBAR -->
-        <div class="tab-pane fade show active" id="rim" role="tabpanel" aria-labelledby="rim-tab">
+        <div class="tab-pane fade show active" id="panelRim" role="tabpanel" aria-labelledby="tabRim">
 
-          <div class="form-group">
-            <select class="form-control form-control-sm" id="rimSize">
-              <option>700C/29er/28" (622)</option>
-              <option>27" frac (630)</option>
-              <option>650B (584)</option>
-            </select>
-          </div>
+          <form id="formRim">
 
-          <div class="form-group">
-            <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="rimMatl">
-              <label class="btn btn-secondary active">
-                <input type="radio" name="rimMatl" id="rimMatlAlloy" autocomplete="off" checked>Alloy
-              </label>
-              <label class="btn btn-secondary">
-                <input type="radio" name="rimMatl" id="rimMatlSteel" autocomplete="off">Steel
-              </label>
-              <label class="btn btn-secondary">
-                <input type="radio" name="rimMatl" id="rimMatlCarbon" autocomplete="off">Carbon
-              </label>
+            <div class="form-group">
+              <select class="form-control form-control-sm" name="rimSize" id="rimSize">
+                <option>700C/29er/28" (622)</option>
+                <option>27" frac (630)</option>
+                <option>650B (584)</option>
+              </select>
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="rimMass">Mass [grams]</label>
-            <input type="range" class="form-control-range" id="rimMass">
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="rimMatl">
+                <label class="btn btn-secondary active">
+                  <input type="radio" name="rimMatlAlloy" id="rimMatlAlloy" autocomplete="off" checked>Alloy
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="rimMatlSteel" id="rimMatlSteel" autocomplete="off">Steel
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="rimMatlCarbon" id="rimMatlCarbon" autocomplete="off">Carbon
+                </label>
+              </div>
+            </div>
 
-            <label for="rimRadStiff">Radial stiffness [N-m^2]</label>
-            <input type="range" class="form-control-range" id="rimRadStiff">
+            <div class="form-group">
+              <label for="rimMass">Mass [grams]</label>
+              <input type="range" class="form-control-range" name="rimMass" id="rimMass">
 
-            <label for="rimLatStiff">Lateral stiffness [N-m^2]</label>
-            <input type="range" class="form-control-range" id="rimLatStiff">
+              <label for="rimRadStiff">Radial stiffness [N-m^2]</label>
+              <input type="range" class="form-control-range" name="rimRadStiff" id="rimRadStiff">
 
-            <label for="rimTorStiff">Torsional stiffness [N-m^2]</label>
-            <input type="range" class="form-control-range" id="rimTorStiff">
-          </div>
+              <label for="rimLatStiff">Lateral stiffness [N-m^2]</label>
+              <input type="range" class="form-control-range" name="rimLatStiff" id="rimLatStiff">
+
+              <label for="rimTorStiff">Torsional stiffness [N-m^2]</label>
+              <input type="range" class="form-control-range" name="rimTorStiff" id="rimTorStiff">
+            </div>
+
+          </form>
 
         </div>
 
         <!-- HUB TOOLBAR -->
-        <div class="tab-pane fade" id="hub" role="tabpanel" aria-labelledby="hub-tab">Hub tools</div>
+        <div class="tab-pane fade" id="panelHub" role="tabpanel" aria-labelledby="tabHub">
+
+          <form id="formHub">
+
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="hubSymm">
+                <label class="btn btn-secondary active">
+                  <input type="radio" name="hubSymm" id="rimMatlAlloy" autocomplete="off" checked>Symmetric
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="hubASymm" id="rimMatlSteel" autocomplete="off">Asymmetric
+                </label>
+              </div>
+            </div>
+
+            <label for="hubWidthLeft">Rim-to-flange distance [mm]</label>
+
+            <div class="form-group form-row">
+              <div class="col-sm-6">
+                <input type="range" class="form-control-range" name="hubWidthLeft" id="hubWidthLeft">
+              </div>
+              <div class="col-sm-6">
+                <input type="range" class="form-control-range" name="hubWidthRight" id="hubWidthRight">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="hubDiameter">Flange diameter [mm]</label>
+              <input type="range" class="form-control-range" name="hubDiameter" id="hubDiameter">
+            </div>
+
+          </form>
+
+        </div>
 
         <!-- SPOKES TOOLBAR -->
-        <div class="tab-pane fade" id="spokes" role="tabpanel" aria-labelledby="spokes-tab">Spokes tools</div>
+        <div class="tab-pane fade" id="panelSpokes" role="tabpanel" aria-labelledby="tabSpokes">
+
+          <form>
+
+            <div class="form-group">
+              <label for="spokesNum">Number of spokes</label>
+              <input type="range" class="form-control-range" id="spokesNum">
+            </div>
+
+            <hr/>
+
+            <strong>Drive-side spokes</strong>
+
+            <div class="form-group">
+              <select class="form-control form-control-sm" id="spkPatternDS">
+                <option>Radial</option>
+                <option>1-cross</option>
+                <option>2-cross</option>
+                <option>3-cross</option>
+                <option>4-cross</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="spkMatlDS">
+                <label class="btn btn-secondary active">
+                  <input type="radio" name="spkMatlDS" id="spkMatlDSAlloy" autocomplete="off" checked>Alloy
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="spkMatlDS" id="spkMatlDSSteel" autocomplete="off">Steel
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="spkMatlDS" id="spkMatlDSTi" autocomplete="off">Titanium
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="spokesDiamDS">Diameter [mm]</label>
+              <input type="range" class="form-control-range" id="spokesDiamDS">
+
+              <label for="spokesTensDS">Tension [kgf]</label>
+              <input type="range" class="form-control-range" id="spokesTensDS">
+            </div>
+
+            <hr/>
+
+            <strong>Non-drive-side spokes</strong>
+
+            <div class="form-group">
+              <select class="form-control form-control-sm" id="spkPatternNDS">
+                <option>Radial</option>
+                <option>1-cross</option>
+                <option>2-cross</option>
+                <option>3-cross</option>
+                <option>4-cross</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="spkMatlNDS">
+                <label class="btn btn-secondary active">
+                  <input type="radio" name="spkMatlNDS" id="spkMatlNDSAlloy" autocomplete="off" checked>Alloy
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="spkMatlNDS" id="spkMatlNDSSteel" autocomplete="off">Steel
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="spkMatlNDS" id="spkMatlNDSTi" autocomplete="off">Titanium
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="spokesDiamNDS">Diameter [mm]</label>
+              <input type="range" class="form-control-range" id="spokesDiamNDS">
+
+              <label for="spokesTensNDS">Tension [kgf]</label>
+              <input type="range" class="form-control-range" id="spokesTensNDS">
+            </div>
+
+          </form>
+
+        </div>
 
         <div><button type="button" id="btnPressMe" class="btn btn-success">Press me!</button></div>
       </div>
 
     </div>
-    <div class="col-8">
+    <div class="col-9">
 
       <!-- Results navigation tabs -->
       <ul class="nav nav-tabs" id="resultsTab" role="tablist">
@@ -119,10 +236,11 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-
 <script>
+
 
 var default_wheel = {
   'wheel': {
@@ -164,6 +282,7 @@ function plot_tensions(data) {
   }] );
 }
 
+
 $('#btnPressMe').on('click', function () {
 
   post_data = $.extend({}, default_wheel)
@@ -172,16 +291,18 @@ $('#btnPressMe').on('click', function () {
     'forces': [{'location': 3.1415, 'magnitude': [0., 1., 0., 0.]}]
   }
 
-  $.post({
-    url: 'http://localhost:5000/calculate',
-    data: JSON.stringify(post_data),
-    dataType: 'json',
-    contentType: 'application/json',
-    success: function (result) {
-      plot_tensions(result);
-    },
-    error: function (xhr, ajaxOptions, thrownError) {}
-  });
+  // $.post({
+  //   url: 'http://localhost:5000/calculate',
+  //   data: JSON.stringify(post_data),
+  //   dataType: 'json',
+  //   contentType: 'application/json',
+  //   success: function (result) {
+  //     plot_tensions(result);
+  //   },
+  //   error: function (xhr, ajaxOptions, thrownError) {}
+  // });
+
+  console.log($('#formHub').serializeArray())
 
 })
 
