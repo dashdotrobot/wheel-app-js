@@ -60,16 +60,16 @@
 
             <div class="form-group">
               <label for="rimMass">Mass [grams]</label>
-              <input type="range" class="form-control-range custom-range" name="rimMass" id="rimMass">
+              <input type="range" class="form-control-range custom-range" name="rimMass" id="rimMass" min="10" max="2000" value="540">
 
               <label for="rimRadStiff">Radial stiffness [N-m^2]</label>
-              <input type="range" class="form-control-range custom-range" name="rimRadStiff" id="rimRadStiff">
+              <input type="range" class="form-control-range custom-range" name="rimRadStiff" id="rimRadStiff" min="10" max="1000" step="10" value="110">
 
               <label for="rimLatStiff">Lateral stiffness [N-m^2]</label>
-              <input type="range" class="form-control-range custom-range" name="rimLatStiff" id="rimLatStiff">
+              <input type="range" class="form-control-range custom-range" name="rimLatStiff" id="rimLatStiff" min="10" max="500" value="220">
 
               <label for="rimTorStiff">Torsional stiffness [N-m^2]</label>
-              <input type="range" class="form-control-range custom-range" name="rimTorStiff" id="rimTorStiff">
+              <input type="range" class="form-control-range custom-range" name="rimTorStiff" id="rimTorStiff" min="5" max="200" step="5" value="25">
             </div>
 
           </form>
