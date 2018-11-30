@@ -260,6 +260,11 @@
 <script>
 
 
+/* -------------------------------- CALLBACKS -------------------------------- **
+**
+** --------------------------------------------------------------------------- */
+
+
 $('input.update-range').on('change mousemove', function() {
   $(this).prev().html('<strong>' + $(this).val() + '</strong>');
 })
@@ -280,7 +285,28 @@ $('#spkNDSSame_no').click(function() {
   $('#spkNDSPanel').collapse('show')
 })
 
+$('#btnPressMe').on('click', function () {
 
+  post_data = $.extend({}, default_wheel)
+
+  post_data['tension'] = {
+    'forces': [{'location': 3.1415, 'magnitude': [0., 1., 0., 0.]}]
+  }
+
+  // $.post({
+  //   url: 'http://localhost:5000/calculate',
+  //   data: JSON.stringify(post_data),
+  //   dataType: 'json',
+  //   contentType: 'application/json',
+  //   success: function (result) {
+  //     plot_tensions(result);
+  //   },
+  //   error: function (xhr, ajaxOptions, thrownError) {}
+  // });
+
+  console.log($('#formHub').serializeArray())
+
+})
 
 var default_wheel = {
   'wheel': {
@@ -310,6 +336,18 @@ var default_wheel = {
       'tension': 0.}},
 }
 
+
+/* -------------------------------- FUNCTIONS -------------------------------- **
+**
+** --------------------------------------------------------------------------- */
+
+// Build JSON request object to send to wheel-api
+function build_json_request() {
+
+
+
+}
+
 function plot_tensions(data) {
   console.log(data)
 
@@ -322,29 +360,6 @@ function plot_tensions(data) {
   }] );
 }
 
-
-$('#btnPressMe').on('click', function () {
-
-  post_data = $.extend({}, default_wheel)
-
-  post_data['tension'] = {
-    'forces': [{'location': 3.1415, 'magnitude': [0., 1., 0., 0.]}]
-  }
-
-  // $.post({
-  //   url: 'http://localhost:5000/calculate',
-  //   data: JSON.stringify(post_data),
-  //   dataType: 'json',
-  //   contentType: 'application/json',
-  //   success: function (result) {
-  //     plot_tensions(result);
-  //   },
-  //   error: function (xhr, ajaxOptions, thrownError) {}
-  // });
-
-  console.log($('#formHub').serializeArray())
-
-})
 
 
 TESTER = document.getElementById('tension-plot');
