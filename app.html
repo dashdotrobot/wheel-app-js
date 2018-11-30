@@ -59,11 +59,11 @@
             </div>
 
             <div class="form-group">
-              <label for="rimMass">Mass [grams]</label>
-              <input type="range" class="form-control-range custom-range" name="rimMass" id="rimMass" min="10" max="2000" value="540">
+              <label for="rimMass">Mass [grams]: </label><span><b>540</b></span>
+              <input type="range" class="form-control-range custom-range update-range" name="rimMass" id="rimMass" min="10" max="2000" value="540">
 
-              <label for="rimRadStiff">Radial stiffness [N-m^2]</label>
-              <input type="range" class="form-control-range custom-range" name="rimRadStiff" id="rimRadStiff" min="10" max="1000" step="10" value="110">
+              <label for="rimRadStiff">Radial stiffness [N-m^2]: </label><span><b>110</b></span>
+              <input type="range" class="form-control-range custom-range update-range" name="rimRadStiff" id="rimRadStiff" min="10" max="1000" step="10" value="110">
 
               <label for="rimLatStiff">Lateral stiffness [N-m^2]</label>
               <input type="range" class="form-control-range custom-range" name="rimLatStiff" id="rimLatStiff" min="10" max="500" value="220">
@@ -240,6 +240,11 @@
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 <script>
+
+
+$('input.update-range').on('change mousemove', function() {
+  $(this).prev().html('<b>' + $(this).val() + '</b>');
+})
 
 
 var default_wheel = {
