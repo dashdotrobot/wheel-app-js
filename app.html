@@ -59,17 +59,17 @@
             </div>
 
             <div class="form-group">
-              <label for="rimMass">Mass [grams]: </label><span><b>540</b></span>
-              <input type="range" class="form-control-range custom-range update-range" name="rimMass" id="rimMass" min="10" max="2000" value="540">
+              <label for="rimMass">Mass [grams]:&nbsp;</label><span><strong>540</strong></span>
+              <input type="range" class="form-control-range custom-range update-range" name="rimMass" id="rimMass" min="10" step="10" max="2000" value="540">
 
-              <label for="rimRadStiff">Radial stiffness [N-m^2]: </label><span><b>110</b></span>
+              <label for="rimRadStiff">Radial stiffness [N-m^2]:&nbsp;</label><span><strong>110</strong></span>
               <input type="range" class="form-control-range custom-range update-range" name="rimRadStiff" id="rimRadStiff" min="10" max="1000" step="10" value="110">
 
-              <label for="rimLatStiff">Lateral stiffness [N-m^2]</label>
-              <input type="range" class="form-control-range custom-range" name="rimLatStiff" id="rimLatStiff" min="10" max="500" value="220">
+              <label for="rimLatStiff">Lateral stiffness [N-m^2]:&nbsp;</label><span><strong>220</strong></span>
+              <input type="range" class="form-control-range custom-range update-range" name="rimLatStiff" id="rimLatStiff" min="10" max="500" value="220">
 
-              <label for="rimTorStiff">Torsional stiffness [N-m^2]</label>
-              <input type="range" class="form-control-range custom-range" name="rimTorStiff" id="rimTorStiff" min="5" max="200" step="5" value="25">
+              <label for="rimTorStiff">Torsional stiffness [N-m<sup>2</sup>]:&nbsp;</label><span><strong>25</strong></span>
+              <input type="range" class="form-control-range custom-range update-range" name="rimTorStiff" id="rimTorStiff" min="5" max="200" step="5" value="25">
             </div>
 
           </form>
@@ -94,18 +94,27 @@
 
             <label for="hubWidthLeft">Rim-to-flange distance [mm]</label>
 
-            <div class="form-group form-row">
+            <div class="form-row">
               <div class="col-sm-6">
-                <input type="range" class="form-control-range custom-range" name="hubWidthLeft" id="hubWidthLeft">
+                Left:&nbsp;<span id="hubWidthLeft_label"><strong>25</strong></span>
               </div>
               <div class="col-sm-6">
-                <input type="range" class="form-control-range custom-range" name="hubWidthRight" id="hubWidthRight">
+                Right:&nbsp;<span id="hubWidthRight_label"><strong>25</strong></span>
+              </div>
+            </div>
+
+            <div class="form-group form-row">
+              <div class="col-sm-6">
+                <input type="range" class="form-control-range custom-range" name="hubWidthLeft" id="hubWidthLeft" min="-50" max="0" step="1" value="-25">
+              </div>
+              <div class="col-sm-6">
+                <input type="range" class="form-control-range custom-range" name="hubWidthRight" id="hubWidthRight" min="0" max="50" step="1" value="25">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="hubDiameter">Flange diameter [mm]</label>
-              <input type="range" class="form-control-range custom-range" name="hubDiameter" id="hubDiameter">
+              <label for="hubDiameter">Flange diameter [mm]:&nbsp;</label><span><strong>50</strong></span>
+              <input type="range" class="form-control-range custom-range update-range" name="hubDiameter" id="hubDiameter" min="0" max="100" value="50">
             </div>
 
           </form>
@@ -115,17 +124,14 @@
         <!-- SPOKES TOOLBAR -->
         <div class="tab-pane fade" id="panelSpokes" role="tabpanel" aria-labelledby="tabSpokes">
 
+          <div class="form-group">
+            <label for="spokesNum">Number of spokes</label>
+            <input type="range" class="form-control-range custom-range" id="spokesNum">
+          </div>
+
+          <hr/><strong>Drive-side spokes</strong>
+
           <form>
-
-            <div class="form-group">
-              <label for="spokesNum">Number of spokes</label>
-              <input type="range" class="form-control-range custom-range" id="spokesNum">
-            </div>
-
-            <hr/>
-
-            <strong>Drive-side spokes</strong>
-
             <div class="form-group">
               <select class="form-control form-control-sm" id="spkPatternDS">
                 <option>Radial</option>
@@ -137,7 +143,7 @@
             </div>
 
             <div class="form-group">
-              <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="spkMatlDS">
+              <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons" id="spkMatlDS">
                 <label class="btn btn-secondary active">
                   <input type="radio" name="spkMatlDS" id="spkMatlDSAlloy" autocomplete="off" checked>Alloy
                 </label>
@@ -151,50 +157,62 @@
             </div>
 
             <div class="form-group">
-              <label for="spokesDiamDS">Diameter [mm]</label>
-              <input type="range" class="form-control-range custom-range" id="spokesDiamDS">
+              <label for="spokesDiamDS">Diameter [mm]:&nbsp;</label><span><strong>2</strong></span>
+              <input type="range" class="form-control-range custom-range update-range" id="spokesDiamDS" min="0.1", max="3" step="0.1" value="2">
 
-              <label for="spokesTensDS">Tension [kgf]</label>
-              <input type="range" class="form-control-range custom-range" id="spokesTensDS">
+              <label for="spokesTensDS">Tension [kgf]:&nbsp;</label><span><strong>80</strong></span>
+              <input type="range" class="form-control-range custom-range update-range" id="spokesTensDS" min="0" max="200" step="5" value="80">
             </div>
-
-            <hr/>
-
-            <strong>Non-drive-side spokes</strong>
-
-            <div class="form-group">
-              <select class="form-control form-control-sm" id="spkPatternNDS">
-                <option>Radial</option>
-                <option>1-cross</option>
-                <option>2-cross</option>
-                <option>3-cross</option>
-                <option>4-cross</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="spkMatlNDS">
-                <label class="btn btn-secondary active">
-                  <input type="radio" name="spkMatlNDS" id="spkMatlNDSAlloy" autocomplete="off" checked>Alloy
-                </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="spkMatlNDS" id="spkMatlNDSSteel" autocomplete="off">Steel
-                </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="spkMatlNDS" id="spkMatlNDSTi" autocomplete="off">Titanium
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="spokesDiamNDS">Diameter [mm]</label>
-              <input type="range" class="form-control-range custom-range" id="spokesDiamNDS">
-
-              <label for="spokesTensNDS">Tension [kgf]</label>
-              <input type="range" class="form-control-range custom-range" id="spokesTensNDS">
-            </div>
-
           </form>
+
+          <hr/><strong>Non-drive-side spokes</strong>
+
+          <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+              <input type="radio" name="options" id="spkNDSSame_yes" autocomplete="off" checked> Same as DS
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="options" id="spkNDSSame_no" autocomplete="off"> Different
+            </label>
+          </div>
+
+          <div class="collapse" id="spkNDSPanel">
+
+            <form>
+              <div class="form-group">
+                <select class="form-control form-control-sm" id="spkPatternNDS">
+                  <option>Radial</option>
+                  <option>1-cross</option>
+                  <option>2-cross</option>
+                  <option>3-cross</option>
+                  <option>4-cross</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="spkMatlNDS">
+                  <label class="btn btn-secondary active">
+                    <input type="radio" name="spkMatlNDS" id="spkMatlNDSAlloy" autocomplete="off" checked>Alloy
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="spkMatlNDS" id="spkMatlNDSSteel" autocomplete="off">Steel
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="spkMatlNDS" id="spkMatlNDSTi" autocomplete="off">Titanium
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="spokesDiamNDS">Diameter [mm]&nbsp;</label><span><strong>2</strong></span>
+                <input type="range" class="form-control-range custom-range update-range" id="spokesDiamNDS" min="0.1", max="3" step="0.1" value="2">
+
+                <label for="spokesTensNDS">Tension [kgf]:&nbsp;</label><span><strong>80</strong></span>
+                <input type="range" class="form-control-range custom-range update-range" id="spokesTensNDS" min="0" max="200" step="5" value="80">
+              </div>
+            </form>
+
+          </div>
 
         </div>
 
@@ -243,8 +261,25 @@
 
 
 $('input.update-range').on('change mousemove', function() {
-  $(this).prev().html('<b>' + $(this).val() + '</b>');
+  $(this).prev().html('<strong>' + $(this).val() + '</strong>');
 })
+
+$('#hubWidthLeft').on('change mousemove', function() {
+  $(('#hubWidthLeft_label')).html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>')
+})
+
+$('#hubWidthRight').on('change mousemove', function() {
+  $(('#hubWidthRight_label')).html('<strong>' + $(this).val() + '</strong>')
+})
+
+$('#spkNDSSame_yes').click(function() {
+  $('#spkNDSPanel').collapse('hide')
+})
+
+$('#spkNDSSame_no').click(function() {
+  $('#spkNDSPanel').collapse('show')
+})
+
 
 
 var default_wheel = {
