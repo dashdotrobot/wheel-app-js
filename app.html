@@ -125,43 +125,43 @@
         <div class="tab-pane fade" id="panelSpokes" role="tabpanel" aria-labelledby="tabSpokes">
 
           <div class="form-group">
-            <label for="spokesNum">Number of spokes:&nbsp;</label><span><strong>36</strong></span>
-            <input type="range" class="form-control-range custom-range update-range" id="spokesNum" min="4" max="64" step="2" value="36">
+            <label for="spkNum">Number of spokes:&nbsp;</label><span><strong>36</strong></span>
+            <input type="range" class="form-control-range custom-range update-range" name="spkNum" id="spkNum" min="4" max="64" step="2" value="36">
           </div>
 
           <hr/><strong>Drive-side spokes</strong>
 
-          <form>
+          <form id="formSpokesDS">
             <div class="form-group">
-              <select class="form-control form-control-sm" id="spkPatternDS">
+              <select class="form-control form-control-sm" name="spkPattern" id="spkPatternDS">
                 <option>Radial</option>
                 <option>1-cross</option>
                 <option>2-cross</option>
-                <option>3-cross</option>
+                <option selected>3-cross</option>
                 <option>4-cross</option>
               </select>
             </div>
 
             <div class="form-group">
               <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons" id="spkMatlDS">
-                <label class="btn btn-secondary">
-                  <input type="radio" name="spkMatlDS" value="steel" id="spkMatlDSSteel" autocomplete="off" checked>Steel
-                </label>
                 <label class="btn btn-secondary active">
-                  <input type="radio" name="spkMatlDS" value="alloy" id="spkMatlDSAlloy" autocomplete="off">Alloy
+                  <input type="radio" name="spkMatl" value="Steel" id="spkMatlDSSteel" autocomplete="off" checked>Steel
                 </label>
                 <label class="btn btn-secondary">
-                  <input type="radio" name="spkMatlDS" value="titanium" id="spkMatlDSTi" autocomplete="off">Titanium
+                  <input type="radio" name="spkMatl" value="Alloy" id="spkMatlDSAlloy" autocomplete="off">Alloy
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="spkMatl" value="Titanium" id="spkMatlDSTi" autocomplete="off">Titanium
                 </label>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="spokesDiamDS">Diameter [mm]:&nbsp;</label><span><strong>2</strong></span>
-              <input type="range" class="form-control-range custom-range update-range" id="spokesDiamDS" min="0.1", max="3" step="0.1" value="2">
+              <label for="spkDiamDS">Diameter [mm]:&nbsp;</label><span><strong>2</strong></span>
+              <input type="range" class="form-control-range custom-range update-range" name="spkDiam" id="spkDiamDS" min="0.1", max="3" step="0.1" value="2">
 
-              <label for="spokesTensDS">Tension [kgf]:&nbsp;</label><span><strong>80</strong></span>
-              <input type="range" class="form-control-range custom-range update-range" id="spokesTensDS" min="0" max="200" step="5" value="80">
+              <label for="spkTensDS">Tension [kgf]:&nbsp;</label><span><strong>80</strong></span>
+              <input type="range" class="form-control-range custom-range update-range" name="spkTens" id="spkTensDS" min="0" max="200" step="5" value="80">
             </div>
           </form>
 
@@ -174,37 +174,37 @@
 
           <div class="collapse" id="spkNDSPanel">
 
-            <form>
+            <form id="formSpokesNDS">
               <div class="form-group">
-                <select class="form-control form-control-sm" id="spkPatternNDS">
+                <select class="form-control form-control-sm" name="spkPattern" id="spkPattern">
                   <option>Radial</option>
                   <option>1-cross</option>
                   <option>2-cross</option>
-                  <option>3-cross</option>
+                  <option selected>3-cross</option>
                   <option>4-cross</option>
                 </select>
               </div>
 
               <div class="form-group">
                 <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="spkMatlNDS">
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="spkMatlNDS" value="steel" id="spkMatlNDSSteel" autocomplete="off" checked>Steel
-                  </label>
                   <label class="btn btn-secondary active">
-                    <input type="radio" name="spkMatlNDS" value="alloy" id="spkMatlNDSAlloy" autocomplete="off">Alloy
+                    <input type="radio" name="spkMatl" value="Steel" id="spkMatlNDSSteel" autocomplete="off" checked>Steel
                   </label>
                   <label class="btn btn-secondary">
-                    <input type="radio" name="spkMatlNDS" value="titanium" id="spkMatlNDSTi" autocomplete="off">Titanium
+                    <input type="radio" name="spkMatl" value="Alloy" id="spkMatlNDSAlloy" autocomplete="off">Alloy
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="spkMatl" value="Titanium" id="spkMatlNDSTi" autocomplete="off">Titanium
                   </label>
                 </div>
               </div>
 
               <div class="form-group">
-                <label for="spokesDiamNDS">Diameter [mm]&nbsp;</label><span><strong>2</strong></span>
-                <input type="range" class="form-control-range custom-range update-range" id="spokesDiamNDS" min="0.1", max="3" step="0.1" value="2">
+                <label for="spkDiamNDS">Diameter [mm]&nbsp;</label><span><strong>2</strong></span>
+                <input type="range" class="form-control-range custom-range update-range" name="spkDiam" id="spkDiamNDS" min="0.1", max="3" step="0.1" value="2">
 
-                <label for="spokesTensNDS">Tension [kgf]:&nbsp;</label><span><strong>80</strong></span>
-                <input type="range" class="form-control-range custom-range update-range" id="spokesTensNDS" min="0" max="200" step="5" value="80">
+                <label for="spkTensNDS">Tension [kgf]:&nbsp;</label><span><strong>80</strong></span>
+                <input type="range" class="form-control-range custom-range update-range" name="spkTens" id="spkTensNDS" min="0" max="200" step="5" value="80">
               </div>
             </form>
 
@@ -269,6 +269,21 @@ var rimMaterials = {
     'density': 8000,
     'young_mod': 200e9,
     'shear_mod': 77e9
+  }
+}
+
+var spkMaterials = {
+  'Alloy': {
+    'density': 2700,
+    'young_mod': 69e9,
+  },
+  'Steel': {
+    'density': 8000,
+    'young_mod': 210e9,
+  },
+  'Titanium': {
+    'density': 4500,
+    'young_mod': 105e9
   }
 }
 
@@ -361,6 +376,22 @@ $('#btnPressMe').on('click', function () {
   wheel['rim'] = build_json_rim()
   wheel['hub'] = build_json_hub()
 
+  if ($('#spkNDSSame').is(':checked')) {
+    spkJSON = build_json_spokes($('#formSpokesDS'))
+    spkJSON['num'] = parseInt($('#spkNum').val())
+
+    wheel['spokes'] = spkJSON
+  } else {
+    dsJSON = build_json_spokes($('#formSpokesDS'))
+    ndsJSON = build_json_spokes($('#formSpokesNDS'))
+
+    dsJSON['num'] = parseInt($('#spkNum').val())/2
+    ndsJSON['num'] = parseInt($('#spkNum').val())/2
+
+    wheel['spokes_ds'] = dsJSON
+    wheel['spokes_nds'] = ndsJSON
+  }
+
   console.log(wheel)
 
 })
@@ -401,22 +432,45 @@ function build_json_rim() {
 
 function build_json_hub() {
 
-  var hubForm = {}
-  var hubJSON = {}
+  var form = {}
+  var json = {}
 
   // Load form data
-  $('#formHub').serializeArray().forEach(e => { hubForm[e['name']] = e['value']; })
+  $('#formHub').serializeArray().forEach(e => { form[e['name']] = e['value']; })
 
-  hubJSON['diameter'] = 0.001*parseFloat(hubForm['hubDiameter'])
-  hubJSON['width_ds'] = 0.001*parseFloat(hubForm['hubWidthRight'])
-  hubJSON['width_nds'] = -0.001*parseFloat(hubForm['hubWidthLeft'])
+  json['diameter'] = 0.001*parseFloat(form['hubDiameter'])
+  json['width_ds'] = 0.001*parseFloat(form['hubWidthRight'])
+  json['width_nds'] = -0.001*parseFloat(form['hubWidthLeft'])
 
-  return hubJSON
+  return json
 }
 
-function build_json_spokes() {
-  return false
+function build_json_spokes(form_obj) {
+
+  var form = {}
+  var json = {}
+
+  // Load form data
+  form_obj.serializeArray().forEach(e => { form[e['name']] = e['value']; })
+
+  // Pattern
+  if (form['spkPattern'] == 'Radial') {
+    json['num_cross'] = 0
+  } else {
+    json['num_cross'] = parseInt(form['spkPattern'].substring(0, 1))
+  }
+
+  // Material
+  json['density'] = spkMaterials[form['spkMatl']]['density']
+  json['young_mod'] = spkMaterials[form['spkMatl']]['young_mod']
+
+  json['diameter'] = 0.001*parseFloat(form['spkDiam'])
+  json['offset'] = 0.
+  json['tension'] = parseFloat(form['spkTens']) * 9.81  // Newtons (from kgf)
+
+  return json
 }
+
 
 function plot_tensions(data) {
   console.log(data)
