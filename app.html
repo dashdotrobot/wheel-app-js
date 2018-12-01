@@ -47,13 +47,13 @@
             <div class="form-group">
               <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="rimMatl">
                 <label class="btn btn-secondary active">
-                  <input type="radio" name="rimMatlAlloy" id="rimMatlAlloy" autocomplete="off" checked>Alloy
+                  <input type="radio" name="rimMatl" value="alloy" id="rimMatlAlloy" autocomplete="off" checked>Alloy
                 </label>
                 <label class="btn btn-secondary">
-                  <input type="radio" name="rimMatlSteel" id="rimMatlSteel" autocomplete="off">Steel
+                  <input type="radio" name="rimMatl" value="steel" id="rimMatlSteel" autocomplete="off">Steel
                 </label>
                 <label class="btn btn-secondary">
-                  <input type="radio" name="rimMatlCarbon" id="rimMatlCarbon" autocomplete="off">Carbon
+                  <input type="radio" name="rimMatl" value="carbon" id="rimMatlCarbon" autocomplete="off">Carbon
                 </label>
               </div>
             </div>
@@ -144,14 +144,14 @@
 
             <div class="form-group">
               <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons" id="spkMatlDS">
+                <label class="btn btn-secondary">
+                  <input type="radio" name="spkMatlDS" value="steel" id="spkMatlDSSteel" autocomplete="off" checked>Steel
+                </label>
                 <label class="btn btn-secondary active">
-                  <input type="radio" name="spkMatlDS" id="spkMatlDSAlloy" autocomplete="off" checked>Alloy
+                  <input type="radio" name="spkMatlDS" value="alloy" id="spkMatlDSAlloy" autocomplete="off">Alloy
                 </label>
                 <label class="btn btn-secondary">
-                  <input type="radio" name="spkMatlDS" id="spkMatlDSSteel" autocomplete="off">Steel
-                </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="spkMatlDS" id="spkMatlDSTi" autocomplete="off">Titanium
+                  <input type="radio" name="spkMatlDS" value="titanium" id="spkMatlDSTi" autocomplete="off">Titanium
                 </label>
               </div>
             </div>
@@ -187,14 +187,14 @@
 
               <div class="form-group">
                 <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="spkMatlNDS">
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="spkMatlNDS" value="steel" id="spkMatlNDSSteel" autocomplete="off" checked>Steel
+                  </label>
                   <label class="btn btn-secondary active">
-                    <input type="radio" name="spkMatlNDS" id="spkMatlNDSAlloy" autocomplete="off" checked>Alloy
+                    <input type="radio" name="spkMatlNDS" value="alloy" id="spkMatlNDSAlloy" autocomplete="off">Alloy
                   </label>
                   <label class="btn btn-secondary">
-                    <input type="radio" name="spkMatlNDS" id="spkMatlNDSSteel" autocomplete="off">Steel
-                  </label>
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="spkMatlNDS" id="spkMatlNDSTi" autocomplete="off">Titanium
+                    <input type="radio" name="spkMatlNDS" value="titanium" id="spkMatlNDSTi" autocomplete="off">Titanium
                   </label>
                 </div>
               </div>
@@ -233,7 +233,7 @@
         <!-- Results: Plots -->
         <div class="tab-pane fade show active" id="plots" role="tabpanel" aria-labelledby="plots-tab">
           Plots
-          <div id="tension-plot" style="height: 300px; border: 1px solid black;"></div>
+          <div id="tension-plot" style="height: 300px; width: 100%; border: 1px solid black;"></div>
         </div>
 
         <!-- Results: Summary -->
@@ -305,13 +305,15 @@ $('#btnPressMe').on('click', function () {
   //   error: function (xhr, ajaxOptions, thrownError) {}
   // });
 
-  console.log($('#formHub').serializeArray())
+  // console.log($('#formHub').serializeArray())
+
+  build_wheel_json()
 
 })
 
 var default_wheel = {
   'wheel': {
-      'hub': {
+    'hub': {
       'diameter': 0.05,
       'width_nds': 0.025,
       'width_ds': 0.025},
@@ -343,8 +345,14 @@ var default_wheel = {
 ** --------------------------------------------------------------------------- */
 
 // Build JSON request object to send to wheel-api
-function build_json_request() {
+function build_wheel_json() {
 
+  var w = {}
+
+  // Rim
+  rim = $('#formRim').serializeArray()
+
+  console.log(rim)
 
 
 }
@@ -373,7 +381,7 @@ Plotly.plot(TESTER,
   x: [0, 2, 4],
   y: [4, 4, 1],
   type: 'bar'
-}] );
+}] , {responsive: true});
 
 
 </script>
