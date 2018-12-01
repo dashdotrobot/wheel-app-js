@@ -167,13 +167,9 @@
 
           <hr/><strong>Non-drive-side spokes</strong>
 
-          <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary active">
-              <input type="radio" name="options" id="spkNDSSame_yes" autocomplete="off" checked> Same as DS
-            </label>
-            <label class="btn btn-secondary">
-              <input type="radio" name="options" id="spkNDSSame_no" autocomplete="off"> Different
-            </label>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="spkNDSSame" checked>
+            <label class="form-check-label" for="spkNDSSame">Same as drive-side</label>
           </div>
 
           <div class="collapse" id="spkNDSPanel">
@@ -265,10 +261,12 @@
 ** --------------------------------------------------------------------------- */
 
 
+// Update value labels for all range sliders with class .update-range
 $('input.update-range').on('change mousemove', function() {
   $(this).prev().html('<strong>' + $(this).val() + '</strong>');
 })
 
+// Update value labels for hub width range sliders
 $('#hubWidthLeft').on('change mousemove', function() {
   $(('#hubWidthLeft_label')).html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>')
 })
@@ -277,14 +275,17 @@ $('#hubWidthRight').on('change mousemove', function() {
   $(('#hubWidthRight_label')).html('<strong>' + $(this).val() + '</strong>')
 })
 
-$('#spkNDSSame_yes').click(function() {
-  $('#spkNDSPanel').collapse('hide')
+// Show or hide the non-drive-side spoke panel
+$('#spkNDSSame').click(function() {
+  if ($('#spkNDSSame').is(':checked')) {
+    $('#spkNDSPanel').collapse('hide')
+  } else {
+    $('#spkNDSPanel').collapse('show')
+  }
 })
 
-$('#spkNDSSame_no').click(function() {
-  $('#spkNDSPanel').collapse('show')
-})
 
+// Work the magic!
 $('#btnPressMe').on('click', function () {
 
   post_data = $.extend({}, default_wheel)
