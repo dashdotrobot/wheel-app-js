@@ -255,61 +255,9 @@
 
 <script>
 
-
-/* -------------------------------- CALLBACKS -------------------------------- **
+/* -------------------------------- CONSTANTS -------------------------------- **
 **
 ** --------------------------------------------------------------------------- */
-
-
-// Update value labels for all range sliders with class .update-range
-$('input.update-range').on('change mousemove', function() {
-  $(this).prev().html('<strong>' + $(this).val() + '</strong>');
-})
-
-// Update value labels for hub width range sliders
-$('#hubWidthLeft').on('change mousemove', function() {
-  $(('#hubWidthLeft_label')).html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>')
-})
-
-$('#hubWidthRight').on('change mousemove', function() {
-  $(('#hubWidthRight_label')).html('<strong>' + $(this).val() + '</strong>')
-})
-
-// Show or hide the non-drive-side spoke panel
-$('#spkNDSSame').click(function() {
-  if ($('#spkNDSSame').is(':checked')) {
-    $('#spkNDSPanel').collapse('hide')
-  } else {
-    $('#spkNDSPanel').collapse('show')
-  }
-})
-
-
-// Work the magic!
-$('#btnPressMe').on('click', function () {
-
-  post_data = $.extend({}, default_wheel)
-
-  post_data['tension'] = {
-    'forces': [{'location': 3.1415, 'magnitude': [0., 1., 0., 0.]}]
-  }
-
-  // $.post({
-  //   url: 'http://localhost:5000/calculate',
-  //   data: JSON.stringify(post_data),
-  //   dataType: 'json',
-  //   contentType: 'application/json',
-  //   success: function (result) {
-  //     plot_tensions(result);
-  //   },
-  //   error: function (xhr, ajaxOptions, thrownError) {}
-  // });
-
-  // console.log($('#formHub').serializeArray())
-
-  build_json_rim()
-
-})
 
 var rimMaterials = {
   'Alloy': {
@@ -353,6 +301,71 @@ var default_wheel = {
 }
 
 
+/* -------------------------------- CALLBACKS -------------------------------- **
+**
+** --------------------------------------------------------------------------- */
+
+// Update value labels for all range sliders with class .update-range
+$('input.update-range').on('change mousemove', function() {
+  $(this).prev().html('<strong>' + $(this).val() + '</strong>');
+})
+
+// Update value labels for hub width range sliders
+$('#hubWidthLeft').on('change mousemove', function() {
+  $(('#hubWidthLeft_label')).html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>')
+
+  // If symmetric, update the other one to match
+  // TODO
+
+})
+
+$('#hubWidthRight').on('change mousemove', function() {
+  $(('#hubWidthRight_label')).html('<strong>' + $(this).val() + '</strong>')
+
+  // If symmetric, update the other one to match
+  // TODO
+
+})
+
+// Show or hide the non-drive-side spoke panel
+$('#spkNDSSame').click(function() {
+  if ($('#spkNDSSame').is(':checked')) {
+    $('#spkNDSPanel').collapse('hide')
+  } else {
+    $('#spkNDSPanel').collapse('show')
+  }
+})
+
+
+// Work the magic!
+$('#btnPressMe').on('click', function () {
+
+  post_data = $.extend({}, default_wheel)
+
+  post_data['tension'] = {
+    'forces': [{'location': 3.1415, 'magnitude': [0., 1., 0., 0.]}]
+  }
+
+  // $.post({
+  //   url: 'http://localhost:5000/calculate',
+  //   data: JSON.stringify(post_data),
+  //   dataType: 'json',
+  //   contentType: 'application/json',
+  //   success: function (result) {
+  //     plot_tensions(result);
+  //   },
+  //   error: function (xhr, ajaxOptions, thrownError) {}
+  // });
+
+  wheel = {}
+  wheel['rim'] = build_json_rim()
+  wheel['hub'] = build_json_hub()
+
+  console.log(wheel)
+
+})
+
+
 /* -------------------------------- FUNCTIONS -------------------------------- **
 **
 ** --------------------------------------------------------------------------- */
@@ -384,7 +397,25 @@ function build_json_rim() {
   }
 
   return rimJSON
+}
 
+function build_json_hub() {
+
+  var hubForm = {}
+  var hubJSON = {}
+
+  // Load form data
+  $('#formHub').serializeArray().forEach(e => { hubForm[e['name']] = e['value']; })
+
+  hubJSON['diameter'] = 0.001*parseFloat(hubForm['hubDiameter'])
+  hubJSON['width_ds'] = 0.001*parseFloat(hubForm['hubWidthRight'])
+  hubJSON['width_nds'] = -0.001*parseFloat(hubForm['hubWidthLeft'])
+
+  return hubJSON
+}
+
+function build_json_spokes() {
+  return false
 }
 
 function plot_tensions(data) {
@@ -398,7 +429,6 @@ function plot_tensions(data) {
     type: 'bar'
   }] );
 }
-
 
 
 TESTER = document.getElementById('tension-plot');
