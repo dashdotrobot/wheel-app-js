@@ -47,14 +47,14 @@
             <div class="form-group">
               <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="rimMatl">
                 <label class="btn btn-secondary active">
-                  <input type="radio" name="rimMatl" value="alloy" id="rimMatlAlloy" autocomplete="off" checked>Alloy
+                  <input type="radio" name="rimMatl" value="Alloy" id="rimMatlAlloy" autocomplete="off" checked>Alloy
                 </label>
                 <label class="btn btn-secondary">
-                  <input type="radio" name="rimMatl" value="steel" id="rimMatlSteel" autocomplete="off">Steel
+                  <input type="radio" name="rimMatl" value="Steel" id="rimMatlSteel" autocomplete="off">Steel
                 </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="rimMatl" value="carbon" id="rimMatlCarbon" autocomplete="off">Carbon
-                </label>
+                <!-- <label class="btn btn-secondary"> -->
+                  <!-- <input type="radio" name="rimMatl" value="carbon" id="rimMatlCarbon" autocomplete="off">Carbon -->
+                <!-- </label> -->
               </div>
             </div>
 
@@ -307,9 +307,22 @@ $('#btnPressMe').on('click', function () {
 
   // console.log($('#formHub').serializeArray())
 
-  build_wheel_json()
+  build_json_rim()
 
 })
+
+var rimMaterials = {
+  'Alloy': {
+    'density': 2700,
+    'young_mod': 69e9,
+    'shear_mod': 26e9
+  },
+  'Steel': {
+    'density': 8000,
+    'young_mod': 200e9,
+    'shear_mod': 77e9
+  }
+}
 
 var default_wheel = {
   'wheel': {
@@ -345,15 +358,32 @@ var default_wheel = {
 ** --------------------------------------------------------------------------- */
 
 // Build JSON request object to send to wheel-api
-function build_wheel_json() {
+function build_json_rim() {
 
-  var w = {}
+  var rimForm = {}
+  var rimJSON = {}
 
-  // Rim
-  rim = $('#formRim').serializeArray()
+  // Load form data
+  $('#formRim').serializeArray().forEach(e => { rimForm[e['name']] = e['value']; })
 
-  console.log(rim)
+  // ISO diameter
+  rimJSON['radius'] = 0.001*(parseFloat(/\((\d+)\)/g.exec(rimForm['rimSize'])[1])/2 - 5)
 
+  // Material
+  rimJSON['density'] = rimMaterials[rimForm['rimMatl']]['density']
+  rimJSON['young_mod'] = rimMaterials[rimForm['rimMatl']]['young_mod']
+  rimJSON['shear_mod'] = rimMaterials[rimForm['rimMatl']]['shear_mod']
+
+  // Section properties
+  rimJSON['section_params'] = {
+    'area': 0.001*parseFloat(rimForm['rimMass']) / (rimJSON['density'] * 2*3.1415*rimJSON['radius']),
+    'I_rad': parseFloat(rimForm['rimRadStiff']) / rimJSON['young_mod'],
+    'I_lat': parseFloat(rimForm['rimLatStiff']) / rimJSON['young_mod'],
+    'J_tor': parseFloat(rimForm['rimTorStiff']) / rimJSON['shear_mod'],
+    'I_warp': 0.
+  }
+
+  return rimJSON
 
 }
 
