@@ -11,14 +11,14 @@
 
   <link rel="stylesheet" href="styles.css">
 
-  <title>Hello, world!</title>
+  <title>Bicycle Wheel Designer</title>
 </head>
 <body>
 
 <div class="container">
   <h3>Bicycle wheel app</h3>
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-md-4">
 
       <!-- Toolbar Navigation Tabs -->
       <ul class="nav nav-tabs nav-tabs" id="toolsTab" role="tablist">
@@ -245,7 +245,7 @@
       </div>
 
     </div>
-    <div class="col-sm-8">
+    <div class="col-md-8">
 
       <!-- Results navigation tabs -->
       <ul class="nav nav-tabs" id="resultsTab" role="tablist">
@@ -381,7 +381,6 @@ $('#spkNDSSame').click(function() {
   }
 })
 
-
 // Editable table
 function initEditableTable() {
   $('#tableForces').editableTableWidget();
@@ -397,6 +396,7 @@ initEditableTable()
 $('.add-force').on('click', function() {
   $('#tableForces tr:last').after('<tr><th>' + $(this).text() + '</th><td>0</td><td>0</td><th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>');
 
+  // Re-initialize to add callbacks to new row
   initEditableTable()
 })
 
