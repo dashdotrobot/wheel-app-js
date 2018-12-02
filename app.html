@@ -228,15 +228,18 @@
 
           <table class="table table-striped table-hover table-sm" id="tableForces">
             <tr><th>Type</th><th>Location [deg]</th><th>Magnitude [kgf]</th><th></th></tr>
-            <tr><th>Radial</th><td>0</td><td>50</td><th><i class="fas fa-trash-alt"></i></th></tr>
+            <tr><th>Radial</th><td>0</td><td>50</td><th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>
           </table>
 
-          <button type="button" class="btn btn-sm">Radial</button>
-          <button type="button" class="btn btn-sm">Lateral</button>
-          <button type="button" class="btn btn-sm">Tangential</button>
+          <button type="button" class="btn btn-sm add-force">Radial</button>
+          <button type="button" class="btn btn-sm add-force">Lateral</button>
+          <button type="button" class="btn btn-sm add-force">Tangential</button>
         </div>
 
-        <div><button type="button" id="btnPressMe" class="btn btn-success">Press me!</button></div>
+        <div class="form-group">
+          <button type="button" id="btnPressMe" class="btn btn-success">Press me!</button>
+        </div>
+
       </div>
 
     </div>
@@ -377,14 +380,27 @@ $('#spkNDSSame').click(function() {
 })
 
 
+// Editable table
+function initEditableTable() {
+  $('#tableForces').editableTableWidget();
 
-$('#tableForces').editableTableWidget();
-// $('.editable-row').editableTableWidget();
+  $('.remove-row').click(function() {
+    $(this).parent().parent().remove()
+  })
+}
 
+initEditableTable()
+
+// Add row callback
+$('.add-force').on('click', function() {
+  $('#tableForces tr:last').after('<tr><th>' + $(this).text() + '</th><td>0</td><td>0</td><th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>');
+
+  initEditableTable()
+})
 
 
 // Work the magic!
-$('#btnPressMe').on('click', function () {
+$('#btnPressMe').on('click', function() {
 
   post_data = {'wheel': {}}
   post_data['wheel']['rim'] = build_json_rim()
