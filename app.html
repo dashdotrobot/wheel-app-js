@@ -231,9 +231,11 @@
             <tr><th>Radial</th><td>0</td><td>50</td><th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>
           </table>
 
-          <button type="button" class="btn btn-sm add-force">Radial</button>
-          <button type="button" class="btn btn-sm add-force">Lateral</button>
-          <button type="button" class="btn btn-sm add-force">Tangential</button>
+          <div class="form-group">
+            <button type="button" class="btn btn-sm add-force">Radial</button>
+            <button type="button" class="btn btn-sm add-force">Lateral</button>
+            <button type="button" class="btn btn-sm add-force">Tangential</button>
+          </div>
         </div>
 
         <div class="form-group">
@@ -402,6 +404,7 @@ $('.add-force').on('click', function() {
 // Work the magic!
 $('#btnPressMe').on('click', function() {
 
+  // Build wheel JSON
   post_data = {'wheel': {}}
   post_data['wheel']['rim'] = build_json_rim()
   post_data['wheel']['hub'] = build_json_hub()
@@ -426,8 +429,9 @@ $('#btnPressMe').on('click', function() {
 
   }
 
+  // Build JSON from forces table
   post_data['tension'] = {
-    'forces': [{'location': 3.1415, 'magnitude': [0., 1., 0., 0.]}]
+    'forces': build_json_forces()
   }
 
   console.log(post_data)
@@ -521,6 +525,24 @@ function build_json_spokes(form_obj) {
   return json
 }
 
+function build_json_forces() {
+
+  var dofs = {'Radial': 'f_rad', 'Lateral': 'f_lat', 'Tangential': 'f_tan'}
+  var json = []
+
+  $('#tableForces > tbody > tr').not(':first').each(function() {
+    dof = $(this).find('th:first').text()
+    loc = $(this).find('td:first').text()
+    mag = $(this).find('td:last').text()
+
+    f = {'location': parseFloat(loc)}
+    f[dofs[dof]] = parseFloat(mag)
+
+    json.push(f)
+  })
+
+  return json
+}
 
 function plot_tensions(data) {
   console.log(data)
