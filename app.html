@@ -9,6 +9,8 @@
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
+  <link rel="stylesheet" href="styles.css">
+
   <title>Hello, world!</title>
 </head>
 <body>
@@ -19,18 +21,18 @@
     <div class="col-sm-4">
 
       <!-- Toolbar Navigation Tabs -->
-      <ul class="nav nav-tabs" id="toolsTab" role="tablist">
+      <ul class="nav nav-tabs nav-tabs" id="toolsTab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="tabRim" data-toggle="tab" href="#panelRim" role="tab" aria-controls="panelRim" aria-selected="true">Rim</a>
+          <a class="nav-link p-1 active" id="tabRim" data-toggle="tab" href="#panelRim" role="tab" aria-controls="panelRim" aria-selected="true">Rim</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="tabHub" data-toggle="tab" href="#panelHub" role="tab" aria-controls="panelHub" aria-selected="false">Hub</a>
+          <a class="nav-link p-1" id="tabHub" data-toggle="tab" href="#panelHub" role="tab" aria-controls="panelHub" aria-selected="false">Hub</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="tabSpokes" data-toggle="tab" href="#panelSpokes" role="tab" aria-controls="panelSpokes" aria-selected="false">Spokes</a>
+          <a class="nav-link p-1" id="tabSpokes" data-toggle="tab" href="#panelSpokes" role="tab" aria-controls="panelSpokes" aria-selected="false">Spokes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="tabForces" data-toggle="tab" href="#panelForces" role="tab" aria-controls="panelForces" aria-selected="false">Forces</a>
+          <a class="nav-link p-1" id="tabForces" data-toggle="tab" href="#panelForces" role="tab" aria-controls="panelForces" aria-selected="false">Forces</a>
         </li>
       </ul>
 
@@ -55,15 +57,12 @@
                   <input type="radio" name="rimMatl" value="Alloy" id="rimMatlAlloy" autocomplete="off" checked>Alloy
                 </label>
                 <label class="btn btn-secondary">
-                  <input type="radio" name="rimMatl" value="Steel" id="rimMatlSteel" autocomplete="off">Steel
+                  <input class="btn-sm" type="radio" name="rimMatl" value="Steel" id="rimMatlSteel" autocomplete="off">Steel
                 </label>
-                <!-- <label class="btn btn-secondary"> -->
-                  <!-- <input type="radio" name="rimMatl" value="carbon" id="rimMatlCarbon" autocomplete="off">Carbon -->
-                <!-- </label> -->
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-group-sm">
               <label for="rimMass">Mass [grams]:&nbsp;</label><span><strong>540</strong></span>
               <input type="range" class="form-control-range custom-range update-range" name="rimMass" id="rimMass" min="10" step="10" max="2000" value="540">
 
@@ -97,27 +96,34 @@
               </div>
             </div>
 
-            <label for="hubWidthLeft">Rim-to-flange distance [mm]</label>
+            <div class="form-group form-group-sm">
+              <label>Rim-to-flange distance [mm]</label>
 
-            <div class="form-row">
-              <div class="col-sm-6">
-                Left:&nbsp;<span id="hubWidthLeft_label"><strong>25</strong></span>
+              <div class="form-check form-group-sm">
+                <input class="form-check-input" type="checkbox" value="" id="hubSymm" checked>
+                <label class="form-check-label" for="hubSymm">Symmetric</label>
               </div>
-              <div class="col-sm-6">
-                Right:&nbsp;<span id="hubWidthRight_label"><strong>25</strong></span>
+
+              <div class="form-row">
+                <div class="col-sm-6">
+                  <span>Left:&nbsp;</span><span id="hubWidthLeft_label"><strong>25</strong></span>
+                </div>
+                <div class="col-sm-6">
+                  <span>Right:&nbsp;</span><span id="hubWidthRight_label"><strong>25</strong></span>
+                </div>
               </div>
             </div>
 
-            <div class="form-group form-row">
-              <div class="col-sm-6">
+            <div class="form-group form-group-sm form-row">
+              <div class="col-sm-6 hub-slider-left">
                 <input type="range" class="form-control-range custom-range" name="hubWidthLeft" id="hubWidthLeft" min="-50" max="0" step="1" value="-25">
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-6 hub-slider-right">
                 <input type="range" class="form-control-range custom-range" name="hubWidthRight" id="hubWidthRight" min="0" max="50" step="1" value="25">
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-group-sm">
               <label for="hubDiameter">Flange diameter [mm]:&nbsp;</label><span><strong>50</strong></span>
               <input type="range" class="form-control-range custom-range update-range" name="hubDiameter" id="hubDiameter" min="0" max="100" value="50">
             </div>
@@ -129,7 +135,7 @@
         <!-- SPOKES TOOLBAR -->
         <div class="tab-pane fade" id="panelSpokes" role="tabpanel" aria-labelledby="tabSpokes">
 
-          <div class="form-group">
+          <div class="form-group form-group-sm">
             <label for="spkNum">Number of spokes:&nbsp;</label><span><strong>36</strong></span>
             <input type="range" class="form-control-range custom-range update-range" name="spkNum" id="spkNum" min="4" max="64" step="2" value="36">
           </div>
@@ -137,7 +143,7 @@
           <hr/><strong>Drive-side spokes</strong>
 
           <form id="formSpokesDS">
-            <div class="form-group">
+            <div class="form-group ">
               <select class="form-control form-control-sm" name="spkPattern" id="spkPatternDS">
                 <option>Radial</option>
                 <option>1-cross</option>
@@ -161,7 +167,7 @@
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-group-sm">
               <label for="spkDiamDS">Diameter [mm]:&nbsp;</label><span><strong>2</strong></span>
               <input type="range" class="form-control-range custom-range update-range" name="spkDiam" id="spkDiamDS" min="0.1", max="3" step="0.1" value="2">
 
@@ -172,7 +178,7 @@
 
           <hr/><strong>Non-drive-side spokes</strong>
 
-          <div class="form-check">
+          <div class="form-check form-group-sm">
             <input class="form-check-input" type="checkbox" value="" id="spkNDSSame" checked>
             <label class="form-check-label" for="spkNDSSame">Same as drive-side</label>
           </div>
@@ -204,7 +210,7 @@
                 </div>
               </div>
 
-              <div class="form-group">
+              <div class="form-group form-group-sm">
                 <label for="spkDiamNDS">Diameter [mm]&nbsp;</label><span><strong>2</strong></span>
                 <input type="range" class="form-control-range custom-range update-range" name="spkDiam" id="spkDiamNDS" min="0.1", max="3" step="0.1" value="2">
 
@@ -239,10 +245,10 @@
       <!-- Results navigation tabs -->
       <ul class="nav nav-tabs" id="resultsTab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="plots-tab" data-toggle="tab" href="#plots" role="tab" aria-controls="plots" aria-selected="true">Plots</a>
+          <a class="nav-link p-1 active" id="plots-tab" data-toggle="tab" href="#plots" role="tab" aria-controls="plots" aria-selected="true">Plots</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Results</a>
+          <a class="nav-link p-1" id="results-tab" data-toggle="tab" href="#results" role="tab" aria-controls="results" aria-selected="false">Results</a>
         </li>
       </ul>
 
