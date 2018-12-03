@@ -118,28 +118,7 @@ $('.add-force').on('click', function() {
 // Work the magic!
 $('#btnPressMe').on('click', function() {
 
-  // Build wheel JSON
-  post_data = {
-    'wheel': build_json_wheel()
-  }
-
-  // Build JSON from forces table
-  post_data['tension'] = {
-    'forces': build_json_forces()
-  }
-
-  console.log(post_data)
-
-  $.post({
-    url: 'http://localhost:5000/calculate',
-    data: JSON.stringify(post_data),
-    dataType: 'json',
-    contentType: 'application/json',
-    success: function (result) {
-      plot_tensions(result);
-    },
-    error: function (xhr, ajaxOptions, thrownError) {}
-  });
+  calc_and_plot_tensions()
 
 })
 
@@ -268,6 +247,32 @@ function build_json_forces() {
   return json
 }
 
+function calc_and_plot_tensions() {
+
+  // Build wheel JSON
+  post_data = {
+    'wheel': build_json_wheel()
+  }
+
+  // Build JSON from forces table
+  post_data['tension'] = {
+    'forces': build_json_forces()
+  }
+
+  console.log(post_data)
+
+  $.post({
+    url: 'http://localhost:5000/calculate',
+    data: JSON.stringify(post_data),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (result) {
+      plot_tensions(result);
+    },
+    error: function (xhr, ajaxOptions, thrownError) {}
+  });
+}
+
 function plot_tensions(data) {
   console.log(data)
 
@@ -303,7 +308,6 @@ function plot_tensions(data) {
 
   Plotly.newPlot(plot_canvas, [trace], layout);
 }
-
 
 TESTER = document.getElementById('tension-plot');
 Plotly.plot(TESTER,
