@@ -238,7 +238,7 @@ function build_json_forces() {
     loc = $(this).find('td:first').text()
     mag = $(this).find('td:last').text()
 
-    f = {'location': parseFloat(loc)}
+    f = {'location': parseFloat(loc)*Math.PI/180.}
     f[dofs[dof]] = 9.81*parseFloat(mag)  // Convert [kgf] -> [N]
 
     json.push(f)
