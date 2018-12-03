@@ -292,13 +292,21 @@ function plot_tensions(data) {
   }
 
   var layout = {
+    margin: {
+      l: 50, r: 50, t: 50, b: 50
+    },
     polar: {
-      orientation: 0,
       angularaxis: {
-        'showgrid': false,
+        rotation: -90,
+        showgrid: false,
+        showticklabels: false,
+        tickmode: 'auto',
+        nticks: 36
       },
       radialaxis: {
-        'showgrid': false
+        angle: -90,
+        showgrid: false,
+        showticklabels: false
       }
     }
   }
@@ -309,14 +317,4 @@ function plot_tensions(data) {
   Plotly.newPlot(plot_canvas, [trace], layout);
 }
 
-TESTER = document.getElementById('tension-plot');
-Plotly.plot(TESTER,
-[{
-  x: [1, 3, 5],
-  y: [2, 5, 3],
-  type: 'bar'
-}, {
-  x: [0, 2, 4],
-  y: [4, 4, 1],
-  type: 'bar'
-}] , {responsive: true});
+calc_and_plot_tensions()
