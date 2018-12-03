@@ -269,16 +269,29 @@ function plot_tensions(data) {
   	theta[i] *= 360./parseFloat($('#spkNum').val());
   }
 
-  trace = {
+  var trace = {
   	r: data['tension']['tension'].concat([data['tension']['tension'][0]]),
   	theta: theta.concat(theta[0]),
   	line: {color: 'red'},
   	type: 'scatterpolar'
   }
 
-  console.log(trace)
+  var layout = {
+    polar: {
+      orientation: 0,
+      angularaxis: {
+        'showgrid': false,
+      },
+      radialaxis: {
+        'showgrid': false
+      }
+    }
+  }
 
-  Plotly.newPlot(plot_canvas, [trace]);
+  console.log(trace)
+  console.log(layout)
+
+  Plotly.newPlot(plot_canvas, [trace], layout);
 }
 
 
