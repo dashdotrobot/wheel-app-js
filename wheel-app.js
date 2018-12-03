@@ -119,28 +119,8 @@ $('.add-force').on('click', function() {
 $('#btnPressMe').on('click', function() {
 
   // Build wheel JSON
-  post_data = {'wheel': {}}
-  post_data['wheel']['rim'] = build_json_rim()
-  post_data['wheel']['hub'] = build_json_hub()
-
-  if ($('#spkNDSSame').is(':checked')) {
-
-    spkJSON = build_json_spokes($('#formSpokesDS'))
-    spkJSON['num'] = parseInt($('#spkNum').val())
-
-    post_data['wheel']['spokes'] = spkJSON
-
-  } else {
-
-    dsJSON = build_json_spokes($('#formSpokesDS'))
-    ndsJSON = build_json_spokes($('#formSpokesNDS'))
-
-    dsJSON['num'] = parseInt($('#spkNum').val())/2
-    ndsJSON['num'] = parseInt($('#spkNum').val())/2
-
-    post_data['wheel']['spokes_ds'] = dsJSON
-    post_data['wheel']['spokes_nds'] = ndsJSON
-
+  post_data = {
+    'wheel': build_json_wheel()
   }
 
   // Build JSON from forces table
@@ -235,6 +215,36 @@ function build_json_spokes(form_obj) {
   json['diameter'] = 0.001*parseFloat(form['spkDiam'])
   json['offset'] = 0.
   json['tension'] = parseFloat(form['spkTens']) * 9.81  // Newtons (from kgf)
+
+  return json
+}
+
+function build_json_wheel() {
+
+  var json = {}
+
+  json['rim'] = build_json_rim()
+  json['hub'] = build_json_hub()
+
+  if ($('#spkNDSSame').is(':checked')) {
+
+    spkJSON = build_json_spokes($('#formSpokesDS'))
+    spkJSON['num'] = parseInt($('#spkNum').val())
+
+    json['spokes'] = spkJSON
+
+  } else {
+
+    dsJSON = build_json_spokes($('#formSpokesDS'))
+    ndsJSON = build_json_spokes($('#formSpokesNDS'))
+
+    dsJSON['num'] = parseInt($('#spkNum').val())/2
+    ndsJSON['num'] = parseInt($('#spkNum').val())/2
+
+    json['spokes_ds'] = dsJSON
+    json['spokes_nds'] = ndsJSON
+
+  }
 
   return json
 }
