@@ -33,6 +33,18 @@ var SPK_MATLS = {
   }
 }
 
+var RIM_SIZES = [
+  '700C/29er (622)',
+  '27" frac. (630)',
+  '650B (584)',
+  '26" dec. (559)',
+  '26" x 1 3/8 (590)',
+  '24" dec. (507)',
+  '20" dec. (406)',
+  '36" (787)"',
+  '48" high-wheel (610)',
+  '52" high-wheel (660)'
+]
 
 /* ---------------------------- INITIALIZE GUI ---------------------------- **
 **
@@ -59,6 +71,11 @@ $('#hubWidthRight').on('change mousemove', function() {
   // TODO
 
 })
+
+// Populate rim size dropdown
+for (var i=0; i < RIM_SIZES.length; i++) {
+  $('#rimSize').append('<option>' + RIM_SIZES[i] + '</option>')
+}
 
 // Show or hide the non-drive-side spoke panel
 $('#spkNDSSame').click(function() {
