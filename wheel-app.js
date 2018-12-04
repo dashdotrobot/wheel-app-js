@@ -238,7 +238,7 @@ function build_json_forces() {
     loc = $(this).find('td:first').text()
     mag = $(this).find('td:last').text()
 
-    f = {'location': parseFloat(loc)*Math.PI/180.}
+    f = {'location': parseFloat(loc)*Math.PI/180.}  // Convert [deg] -> [rad]
     f[dofs[dof]] = 9.81*parseFloat(mag)  // Convert [kgf] -> [N]
 
     json.push(f)
@@ -298,10 +298,11 @@ function plot_tensions(data) {
     polar: {
       angularaxis: {
         rotation: -90,
-        showgrid: false,
+        showgrid: true,
         showticklabels: false,
         tickmode: 'auto',
-        nticks: 36
+        nticks: 36,
+        ticks: ''
       },
       radialaxis: {
         angle: -90,
