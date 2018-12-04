@@ -189,6 +189,11 @@ $('#rimPreset').change(function() {
   $('#rimTorStiff').val(rim['GJ']).trigger('change')
 })
 
+// Set rim preset to "Custom" if any fields are changed
+$('.rim-input').click(function() {
+  $('#rimPreset').val('Custom')
+})
+
 // Show or hide the non-drive-side spoke panel
 $('#spkNDSSame').click(function() {
   if ($('#spkNDSSame').is(':checked')) {
