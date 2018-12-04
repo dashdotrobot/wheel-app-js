@@ -313,7 +313,7 @@ function plot_tensions(data) {
     }
   }
 
-  Plotly.newPlot(plot_canvas, traces, layout);
+  Plotly.newPlot(plot_canvas, traces, layout, {responsive: true});
 }
 
 calc_and_plot_tensions()
