@@ -166,28 +166,42 @@ $('#hubSymm').change(function() {
   }
 })
 
-// Populate rim size dropdown
-for (var i=0; i < RIM_SIZES.length; i++) {
-  var size = RIM_SIZES[i]
-  $('#rimSize').append('<option value="' + size + '">' + size + '</option>')
-}
 
 // Populate rim presets dropdown
 for (var key in RIM_PRESETS) {
   $('#rimPreset').append('<option value="' + key + '">' + key + '</option>')
 }
 
-// Load a specified rim preset
-$('#rimPreset').change(function() {
-  var rim = RIM_PRESETS[$('#rimPreset').val()]
+// Populate rim material dropdown
+for (var key in RIM_MATLS) {
+  $('#rimMatl').append('<option value="' + key + '">' + key + '</option>')
+}
 
-  $('#rimMatl' + rim['matl']).click()
+// Populate rim size dropdown
+for (var i=0; i < RIM_SIZES.length; i++) {
+  var size = RIM_SIZES[i]
+  $('#rimSize').append('<option value="' + size + '">' + size + '</option>')
+}
+
+
+// Load a specified rim preset
+function load_rim_preset(name) {
+  var rim = RIM_PRESETS[name]
+
+  $('#rimMatl').val(rim['matl'])
   $('#rimSize').val(rim['size'])
   $('#rimMass').val(rim['mass']).trigger('change')
   $('#rimRadStiff').val(rim['EIrad']).trigger('change')
   $('#rimLatStiff').val(rim['EIlat']).trigger('change')
   $('#rimTorStiff').val(rim['GJ']).trigger('change')
+}
+
+$('#rimPreset').change(function() {
+  load_rim_preset($('#rimPreset').val())
 })
+
+// Set default rim preset
+$('#rimPreset').val('Sun-Ringle CR18 700C, 36h').trigger('change')
 
 // Set rim preset to "Custom" if any fields are changed
 $('.rim-input').click(function() {

@@ -53,20 +53,9 @@
             <div class="form-group form-group-sm">
               <label for="rimSize">or define a custom rim:</label>
               <select class="form-control form-control-sm rim-input" name="rimSize" id="rimSize"></select>
-            </div>
 
-            <div class="form-group">
-              <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="rimMatl">
-                <label class="btn btn-secondary active">
-                  <input type="radio" name="rimMatl" value="Alloy" id="rimMatlAlloy" autocomplete="off" checked>Alloy
-                </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="rimMatl" value="Steel" id="rimMatlSteel" autocomplete="off">Steel
-                </label>
-              </div>
-            </div>
+              <select class="form-control form-control-sm rim-input" name="rimMatl" id="rimMatl"></select>
 
-            <div class="form-group form-group-sm">
               <label for="rimMass">Mass [grams]:&nbsp;</label><span><strong>540</strong></span>
               <input type="range" class="form-control-range custom-range update-range rim-input" name="rimMass" id="rimMass" min="10" step="10" max="2000" value="540">
 
