@@ -3,7 +3,9 @@
 **
 ** --------------------------------------------------------------------------- */
 
-var rimMaterials = {
+var API_ENDPOINT = 'http://localhost:5000/calculate';
+
+var RIM_MATLS = {
   'Alloy': {
     'density': 2700,
     'young_mod': 69e9,
@@ -16,7 +18,7 @@ var rimMaterials = {
   }
 }
 
-var spkMaterials = {
+var SPK_MATLS = {
   'Alloy': {
     'density': 2700,
     'young_mod': 69e9,
@@ -32,9 +34,9 @@ var spkMaterials = {
 }
 
 
-/* -------------------------------- CALLBACKS -------------------------------- **
+/* ---------------------------- INITIALIZE GUI ---------------------------- **
 **
-** --------------------------------------------------------------------------- */
+** ------------------------------------------------------------------------ */
 
 // Update value labels for all range sliders with class .update-range
 $('input.update-range').on('change mousemove', function() {
@@ -76,8 +78,6 @@ function initEditableTable() {
   })
 }
 
-initEditableTable()
-
 // Add row callback
 $('.add-force').on('click', function() {
   $('#tableForces tr:last').after('<tr><th>' + $(this).text() + '</th><td>0</td><td>0</td><th><a class="remove-row" href="#"><i class="fas fa-trash-alt"></i></a></th></tr>');
@@ -86,18 +86,26 @@ $('.add-force').on('click', function() {
   initEditableTable()
 })
 
+initEditableTable()
+
 
 // Work the magic!
 $('#btnPressMe').on('click', function() {
-
+  $(this).text('Please wait...')
+  $(this).addClass('disabled')
   calc_and_plot_tensions()
 
 })
 
+function reset_calc_button() {
+  $('#btnPressMe').text('Calculate')
+  $('#btnPressMe').removeClass('disabled')
+}
 
-/* -------------------------------- FUNCTIONS -------------------------------- **
+
+/* ------------------------------- FUNCTIONS ------------------------------ **
 **
-** --------------------------------------------------------------------------- */
+** ------------------------------------------------------------------------ */
 
 // Build JSON request object to send to wheel-api
 function build_json_rim() {
@@ -112,9 +120,9 @@ function build_json_rim() {
   rimJSON['radius'] = 0.001*(parseFloat(/\((\d+)\)/g.exec(rimForm['rimSize'])[1])/2 - 5)
 
   // Material
-  rimJSON['density'] = rimMaterials[rimForm['rimMatl']]['density']
-  rimJSON['young_mod'] = rimMaterials[rimForm['rimMatl']]['young_mod']
-  rimJSON['shear_mod'] = rimMaterials[rimForm['rimMatl']]['shear_mod']
+  rimJSON['density'] = RIM_MATLS[rimForm['rimMatl']]['density']
+  rimJSON['young_mod'] = RIM_MATLS[rimForm['rimMatl']]['young_mod']
+  rimJSON['shear_mod'] = RIM_MATLS[rimForm['rimMatl']]['shear_mod']
 
   // Section properties
   rimJSON['section_type'] = 'general'
@@ -160,8 +168,8 @@ function build_json_spokes(form_obj) {
   }
 
   // Material
-  json['density'] = spkMaterials[form['spkMatl']]['density']
-  json['young_mod'] = spkMaterials[form['spkMatl']]['young_mod']
+  json['density'] = SPK_MATLS[form['spkMatl']]['density']
+  json['young_mod'] = SPK_MATLS[form['spkMatl']]['young_mod']
 
   json['diameter'] = 0.001*parseFloat(form['spkDiam'])
   json['offset'] = 0.
@@ -223,25 +231,25 @@ function calc_and_plot_tensions() {
 
   // Build wheel JSON
   post_data = {
-    'wheel': build_json_wheel()
-  }
-
-  // Build JSON from forces table
-  post_data['tension'] = {
-    'forces': build_json_forces()
+    'wheel': build_json_wheel(),
+    'tension': {'forces': build_json_forces()}
   }
 
   console.log(post_data)
 
   $.post({
-    url: 'http://localhost:5000/calculate',
+    url: API_ENDPOINT,
     data: JSON.stringify(post_data),
     dataType: 'json',
     contentType: 'application/json',
     success: function (result) {
       plot_tensions(result);
+      reset_calc_button();
     },
-    error: function (xhr, ajaxOptions, thrownError) {}
+    error: function (xhr, ajaxOptions, thrownError) {
+      // TODO
+      reset_calc_button();
+    }
   });
 }
 
