@@ -140,19 +140,30 @@ $('input.update-range').on('change mousemove', function() {
 
 // Update value labels for hub width range sliders
 $('#hubWidthLeft').on('change mousemove', function() {
-  $(('#hubWidthLeft_label')).html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>')
+  $('#hubWidthLeft_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>')
 
   // If symmetric, update the other one to match
-  // TODO
-
+  if ($('#hubSymm').prop('checked')) {
+    $('#hubWidthRight').val(-parseInt($(this).val()))
+    $('#hubWidthRight_label').html('<strong>' + (-parseInt($(this).val())).toString() + '</strong>')
+  }
 })
 
 $('#hubWidthRight').on('change mousemove', function() {
-  $(('#hubWidthRight_label')).html('<strong>' + $(this).val() + '</strong>')
+  $('#hubWidthRight_label').html('<strong>' + $(this).val() + '</strong>')
 
   // If symmetric, update the other one to match
-  // TODO
+  if ($('#hubSymm').prop('checked')) {
+    $('#hubWidthLeft').val(-parseInt($(this).val()))
+    $('#hubWidthLeft_label').html('<strong>' + (parseInt($(this).val())).toString() + '</strong>')
+  }
+})
 
+$('#hubSymm').change(function() {
+  if ($(this).prop('checked')) {
+    $('#hubWidthLeft').val(-parseInt($('#hubWidthRight').val()))
+    $('#hubWidthLeft_label').html('<strong>' + (parseInt($('#hubWidthRight').val())).toString() + '</strong>')
+  }
 })
 
 // Populate rim size dropdown
