@@ -35,16 +35,99 @@ var SPK_MATLS = {
 
 var RIM_SIZES = [
   '700C/29er (622)',
-  '27" frac. (630)',
+  '27-inch frac. (630)',
   '650B (584)',
-  '26" dec. (559)',
-  '26" x 1 3/8 (590)',
-  '24" dec. (507)',
-  '20" dec. (406)',
-  '36" (787)"',
-  '48" high-wheel (610)',
-  '52" high-wheel (660)'
+  '26-inch dec. (559)',
+  '26-inch x 1 3/8 (590)',
+  '24-inch dec. (507)',
+  '20-inch dec. (406)',
+  '36-inch (787)',
+  '48-inch high-wheel (610)',
+  '52-inch high-wheel (660)'
 ]
+
+var RIM_PRESETS = {
+  'Alex ALX-295': {
+    'matl': 'Alloy',
+    'size': '700C/29er (622)',
+    'mass': 480,
+    'EIrad': 310,
+    'EIlat': 210,
+    'GJ': 85
+  },
+  'Alex X404 27-inch': {
+    'matl': 'Alloy',
+    'size': '27-inch frac. (630)',
+    'mass': 595,
+    'EIrad': 130,
+    'EIlat': 150,
+    'GJ': 15
+  },
+  'Alex Y2000 26-inch': {
+    'matl': 'Alloy',
+    'size': '26-inch dec. (559)',
+    'mass': 460,
+    'EIrad': 110,
+    'EIlat': 130,
+    'GJ': 15
+  },
+  'Alex Y2000 700C': {
+    'matl': 'Alloy',
+    'size': '700C/29er (622)',
+    'mass': 550,
+    'EIrad': 125,
+    'EIlat': 160,
+    'GJ': 20
+  },
+  'DT Swiss R460': {
+    'matl': 'Alloy',
+    'size': '700C/29er (622)',
+    'mass': 460,
+    'EIrad': 280,
+    'EIlat': 230,
+    'GJ': 100
+  },
+  'DT Swiss TK540': {
+    'matl': 'Alloy',
+    'size': '700C/29er (622)',
+    'mass': 550,
+    'EIrad': 211,
+    'EIlat': 260,
+    'GJ': 75
+  },
+  'H Plus Son TB14': {
+    'matl': 'Alloy',
+    'size': '700C/29er (622)',
+    'mass': 490,
+    'EIrad': 89,
+    'EIlat': 224,
+    'GJ': 32
+  },
+  'Mavic A119 32-h': {
+    'matl': 'Alloy',
+    'size': '700C/29er (622)',
+    'mass': 540,
+    'EIrad': 140,
+    'EIlat': 232,
+    'GJ': 44
+  },
+  'Sun-Ringle CR18 700C, 36h': {
+    'matl': 'Alloy',
+    'size': '700C/29er (622)',
+    'mass': 540,
+    'EIrad': 110,
+    'EIlat': 220,
+    'GJ': 25
+  },
+  'Sun-Ringle CR18 20-inch': {
+    'matl': 'Alloy',
+    'size': '20-inch dec. (406)',
+    'mass': 380,
+    'EIrad': 100,
+    'EIlat': 150,
+    'GJ': 25
+  },
+}
 
 /* ---------------------------- INITIALIZE GUI ---------------------------- **
 **
@@ -74,8 +157,26 @@ $('#hubWidthRight').on('change mousemove', function() {
 
 // Populate rim size dropdown
 for (var i=0; i < RIM_SIZES.length; i++) {
-  $('#rimSize').append('<option>' + RIM_SIZES[i] + '</option>')
+  var size = RIM_SIZES[i]
+  $('#rimSize').append('<option value="' + size + '">' + size + '</option>')
 }
+
+// Populate rim presets dropdown
+for (var key in RIM_PRESETS) {
+  $('#rimPreset').append('<option value="' + key + '">' + key + '</option>')
+}
+
+// Load a specified rim preset
+$('#rimPreset').change(function() {
+  var rim = RIM_PRESETS[$('#rimPreset').val()]
+
+  $('#rimMatl' + rim['matl']).click()
+  $('#rimSize').val(rim['size'])
+  $('#rimMass').val(rim['mass']).trigger('change')
+  $('#rimRadStiff').val(rim['EIrad']).trigger('change')
+  $('#rimLatStiff').val(rim['EIlat']).trigger('change')
+  $('#rimTorStiff').val(rim['GJ']).trigger('change')
+})
 
 // Show or hide the non-drive-side spoke panel
 $('#spkNDSSame').click(function() {
