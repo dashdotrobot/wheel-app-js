@@ -31,34 +31,6 @@ var spkMaterials = {
   }
 }
 
-var default_wheel = {
-  'wheel': {
-    'hub': {
-      'diameter': 0.05,
-      'width_nds': 0.025,
-      'width_ds': 0.025},
-    'rim': {
-      'radius': 0.3,
-      'young_mod': 69e9,
-      'shear_mod': 26e9,
-      'density': 2700.,
-      'section_type': 'general',
-      'section_params': {
-        'area': 100e-6,
-        'I_rad': 100 / 69e9,
-        'I_lat': 200 / 69e9,
-        'J_tor': 25 / 26e9,
-        'I_warp': 0.}},
-    'spokes': {
-      'num': 36,
-      'num_cross': 3,
-      'diameter': 1.8e-3,
-      'young_mod': 210e9,
-      'density': 8000.,
-      'offset': 0.,
-      'tension': 0.}},
-}
-
 
 /* -------------------------------- CALLBACKS -------------------------------- **
 **
@@ -279,29 +251,50 @@ function plot_tensions(data) {
   plot_canvas = document.getElementById('tension-plot');
 
   theta = data['tension']['spokes'].slice()
+  tension = data['tension']['tension'].slice()
 
-  for(var i=0; i<theta.length; i++) {
+  for (var i=0; i<theta.length; i++) {
   	theta[i] *= 360./parseFloat($('#spkNum').val());
   }
 
-  var trace = {
-  	r: data['tension']['tension'].concat([data['tension']['tension'][0]]),
-  	theta: theta.concat(theta[0]),
-  	line: {color: 'red'},
-  	type: 'scatterpolar'
+  if (true) {  // Separate traces for left and right spokes
+    theta_nds = theta.filter((e, i) => {return i%2 === 0})
+    T_nds = tension.filter((e, i) => {return i%2 === 0})
+
+    theta_ds = theta.filter((e, i) => {return i%2 === 1})
+    T_ds = tension.filter((e, i) => {return i%2 === 1})
+
+    traces = [
+      {
+        name: 'Non-drive-side spokes',
+        r: T_nds.concat(T_nds[0]),
+        theta: theta_nds.concat(theta_nds[0]),
+        type: 'scatterpolar',
+      },
+      {
+        name: 'Drive-side spokes',
+        r: T_ds.concat(T_ds[0]),
+        theta: theta_ds.concat(theta_ds[0]),
+        type: 'scatterpolar',
+      }
+    ]
   }
 
   var layout = {
     margin: {
       l: 50, r: 50, t: 50, b: 50
     },
+    legend: {
+      orientation: 'h'
+    },
     polar: {
       angularaxis: {
         rotation: -90,
         showgrid: true,
         showticklabels: false,
-        tickmode: 'auto',
-        nticks: 36,
+        tickmode: 'linear',
+        tick0: 0,
+        dtick: 360. / parseInt($('#spkNum').val()),
         ticks: ''
       },
       radialaxis: {
@@ -312,10 +305,7 @@ function plot_tensions(data) {
     }
   }
 
-  console.log(trace)
-  console.log(layout)
-
-  Plotly.newPlot(plot_canvas, [trace], layout);
+  Plotly.newPlot(plot_canvas, traces, layout);
 }
 
 calc_and_plot_tensions()
