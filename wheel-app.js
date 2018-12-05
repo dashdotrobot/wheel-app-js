@@ -540,4 +540,41 @@ function plot_tensions(data) {
   Plotly.newPlot(plot_canvas, traces, layout, {responsive: true});
 }
 
+function calc_and_show_summary() {
+  // Build wheel JSON
+  post_data = {
+    'wheel': build_json_wheel(),
+    'mass': {'empty': 0}
+  }
+
+  console.log(post_data)
+
+  $.post({
+    url: API_ENDPOINT,
+    data: JSON.stringify(post_data),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: function (result) {
+      show_summary(result);
+      reset_calc_button();
+    },
+    error: function (xhr, ajaxOptions, thrownError) {
+      // TODO
+      reset_calc_button();
+    }
+  });
+}
+
+function show_summary(data) {
+  console.log(data)
+
+  $('#sumMassGrams').html(Math.round(1000*data['mass']['mass']).toString() + ' grams')
+  $('#sumMassLbs').html('(' + (2.20462*data['mass']['mass']).toFixed(2) + ' lbs)')
+
+  $('#sumMassRotGrams').html(Math.round(1000*data['mass']['mass_rotational']).toString() + ' grams')
+  $('#sumMassRotLbs').html('(' + (2.20462*data['mass']['mass_rotational']).toFixed(2) + ' lbs)')
+
+}
+
 calc_and_plot_tensions()
+calc_and_show_summary()
