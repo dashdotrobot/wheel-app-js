@@ -128,7 +128,7 @@
             <div class="form-group form-group-sm">
               <strong>Drive-side spokes</strong>
 
-              <select class="form-control form-control-sm" name="spkPattern" id="spkPatternDS">
+              <select class="form-control form-control-sm spokes-ds" name="spkPattern" id="spkPattern">
                 <option>Radial</option>
                 <option>1-cross</option>
                 <option>2-cross</option>
@@ -138,25 +138,15 @@
             </div>
 
             <div class="form-group">
-              <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons" id="spkMatlDS">
-                <label class="btn btn-secondary active">
-                  <input type="radio" name="spkMatl" value="Steel" id="spkMatlDSSteel" autocomplete="off" checked>Steel
-                </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="spkMatl" value="Alloy" id="spkMatlDSAlloy" autocomplete="off">Alloy
-                </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="spkMatl" value="Titanium" id="spkMatlDSTi" autocomplete="off">Titanium
-                </label>
-              </div>
+              <select class="form-control form-control-sm spokes-ds" name="spkMatl" id="spkMatl"></select>
             </div>
 
             <div class="form-group form-group-sm">
               <label for="spkDiamDS">Diameter [mm]:&nbsp;</label><span><strong>2</strong></span>
-              <input type="range" class="form-control-range custom-range update-range" name="spkDiam" id="spkDiamDS" min="0.1", max="3" step="0.1" value="2">
+              <input type="range" class="form-control-range custom-range update-range spokes-ds" name="spkDiam" id="spkDiam" min="0.1", max="3" step="0.1" value="2">
 
               <label for="spkTensDS">Tension [kgf]:&nbsp;</label><span><strong>80</strong></span>
-              <input type="range" class="form-control-range custom-range update-range" name="spkTens" id="spkTensDS" min="0" max="200" step="5" value="80">
+              <input type="range" class="form-control-range custom-range update-range" name="spkTens" id="spkTens" min="0" max="200" step="5" value="80">
             </div>
           </form>
 
@@ -183,17 +173,7 @@
               </div>
 
               <div class="form-group">
-                <div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons" id="spkMatlNDS">
-                  <label class="btn btn-secondary active">
-                    <input type="radio" name="spkMatl" value="Steel" id="spkMatlNDSSteel" autocomplete="off" checked>Steel
-                  </label>
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="spkMatl" value="Alloy" id="spkMatlNDSAlloy" autocomplete="off">Alloy
-                  </label>
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="spkMatl" value="Titanium" id="spkMatlNDSTi" autocomplete="off">Titanium
-                  </label>
-                </div>
+                <select class="form-control form-control-sm" name="spkMatl" id="spkMatlNDS"></select>
               </div>
 
               <div class="form-group form-group-sm">

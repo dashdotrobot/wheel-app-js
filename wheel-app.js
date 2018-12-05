@@ -211,14 +211,45 @@ $('.rim-input').click(function() {
   $('#rimPreset').val('Custom')
 })
 
+// Populate spoke material dropdowns
+for (var key in SPK_MATLS) {
+  $('#spkMatl').append('<option value="' + key + '">' + key + '</option>')
+  $('#spkMatlNDS').append('<option value="' + key + '">' + key + '</option>')
+}
+
 // Show or hide the non-drive-side spoke panel
 $('#spkNDSSame').click(function() {
   if ($('#spkNDSSame').is(':checked')) {
     $('#spkNDSPanel').collapse('hide')
+
+    // Reset NDS values to match
+    $('.spokes-ds').each(function() {
+      $('#' + $(this).prop('id') + 'NDS').val($(this).val()).trigger('change')
+    })
   } else {
     $('#spkNDSPanel').collapse('show')
   }
 })
+
+// Set NDS properties equal if 'Same' is checked
+$('.spokes-ds').on('change', function() {
+  if ($('#spkNDSSame').is(':checked')) {
+    $('#' + $(this).prop('id') + 'NDS').val($(this).val()).trigger('change')
+  }
+})
+
+// Set spoke tension based on tension ratio
+$('#spkTens').on('change mousemove', function() {
+  var T_ratio = calc_tension_ratio()
+  $('#spkTensNDS').val($(this).val() / T_ratio)
+  $('#spkTensNDS').prev().html('<strong>' + $('#spkTensNDS').val() + '</strong>');
+})
+$('#spkTensNDS').on('change mousemove', function() {
+  var T_ratio = calc_tension_ratio()
+  $('#spkTens').val($(this).val() * T_ratio)
+  $('#spkTens').prev().html('<strong>' + $('#spkTensNDS').val() + '</strong>');
+})
+
 
 // Editable table
 function initEditableTable() {
@@ -257,6 +288,31 @@ function reset_calc_button() {
 /* ------------------------------- FUNCTIONS ------------------------------ **
 **
 ** ------------------------------------------------------------------------ */
+
+// Calculate spoke tension ratio, T_ds / T_nds
+function calc_tension_ratio() {
+
+  w = build_json_wheel()
+
+  // Drive-side spoke vector
+  theta_h_ds = 4*Math.PI/w['spokes_ds']['num'] * w['spokes_ds']['num_cross']
+  n_ds_1 = w['hub']['width_ds']/1000
+  n_ds_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h_ds)
+  n_ds_3 = w['hub']['diameter']/2*Math.sin(theta_h_ds)
+  l_ds = Math.sqrt(n_ds_1**2 + n_ds_2**2 + n_ds_3**2)
+
+  // Non-drive-side spoke vector
+  theta_h_nds = 4*Math.PI/w['spokes_nds']['num'] * w['spokes_nds']['num_cross']
+  n_nds_1 = w['hub']['width_nds']/1000
+  n_nds_2 = w['rim']['radius'] - w['hub']['diameter']/2*Math.cos(theta_h_nds)
+  n_nds_3 = w['hub']['diameter']/2*Math.sin(theta_h_nds)
+  l_nds = Math.sqrt(n_ds_1**2 + n_ds_2**2 + n_ds_3**2)
+
+  c1_ds = n_ds_1 / l_ds
+  c1_nds = n_nds_1 / l_nds
+
+  return c1_nds / c1_ds
+}
 
 // Build JSON request object to send to wheel-api
 function build_json_rim() {
@@ -336,25 +392,14 @@ function build_json_wheel() {
   json['rim'] = build_json_rim()
   json['hub'] = build_json_hub()
 
-  if ($('#spkNDSSame').is(':checked')) {
+  dsJSON = build_json_spokes($('#formSpokesDS'))
+  ndsJSON = build_json_spokes($('#formSpokesNDS'))
 
-    spkJSON = build_json_spokes($('#formSpokesDS'))
-    spkJSON['num'] = parseInt($('#spkNum').val())
+  dsJSON['num'] = parseInt($('#spkNum').val())/2
+  ndsJSON['num'] = parseInt($('#spkNum').val())/2
 
-    json['spokes'] = spkJSON
-
-  } else {
-
-    dsJSON = build_json_spokes($('#formSpokesDS'))
-    ndsJSON = build_json_spokes($('#formSpokesNDS'))
-
-    dsJSON['num'] = parseInt($('#spkNum').val())/2
-    ndsJSON['num'] = parseInt($('#spkNum').val())/2
-
-    json['spokes_ds'] = dsJSON
-    json['spokes_nds'] = ndsJSON
-
-  }
+  json['spokes_ds'] = dsJSON
+  json['spokes_nds'] = ndsJSON
 
   return json
 }
