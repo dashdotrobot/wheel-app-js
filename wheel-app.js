@@ -186,14 +186,17 @@ for (var i=0; i < RIM_SIZES.length; i++) {
 
 // Load a specified rim preset
 function load_rim_preset(name) {
-  var rim = RIM_PRESETS[name]
 
-  $('#rimMatl').val(rim['matl'])
-  $('#rimSize').val(rim['size'])
-  $('#rimMass').val(rim['mass']).trigger('change')
-  $('#rimRadStiff').val(rim['EIrad']).trigger('change')
-  $('#rimLatStiff').val(rim['EIlat']).trigger('change')
-  $('#rimTorStiff').val(rim['GJ']).trigger('change')
+  if (name != 'Custom') {
+    var rim = RIM_PRESETS[name]
+
+    $('#rimMatl').val(rim['matl'])
+    $('#rimSize').val(rim['size'])
+    $('#rimMass').val(rim['mass']).trigger('change')
+    $('#rimRadStiff').val(rim['EIrad']).trigger('change')
+    $('#rimLatStiff').val(rim['EIlat']).trigger('change')
+    $('#rimTorStiff').val(rim['GJ']).trigger('change')
+  }
 }
 
 $('#rimPreset').change(function() {
