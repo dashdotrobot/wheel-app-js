@@ -278,7 +278,9 @@ initEditableTable()
 $('#btnPressMe').on('click', function() {
   $(this).text('Please wait...')
   $(this).addClass('disabled')
+
   calc_and_plot_tensions()
+  calc_and_show_summary()
 
 })
 
@@ -578,13 +580,13 @@ function show_summary(data) {
 
   // Stiffness properties
   $('#sumStiffRadSI').html((0.001*data['stiffness']['radial_stiffness']).toFixed(0) + ' N/mm')
-  $('#sumStiffRadLbs').html((0.224809*0.0254*data['stiffness']['radial_stiffness']).toFixed(0) + ' lbs/in')
+  $('#sumStiffRadLbs').html('(' + (0.224809*0.0254*data['stiffness']['radial_stiffness']).toFixed(0) + ' lbs/in)')
 
   $('#sumStiffLatSI').html((0.001*data['stiffness']['lateral_stiffness']).toFixed(1) + ' N/mm')
-  $('#sumStiffLatLbs').html((0.224809*0.0254*data['stiffness']['lateral_stiffness']).toFixed(0) + ' lbs/in')
+  $('#sumStiffLatLbs').html('(' + (0.224809*0.0254*data['stiffness']['lateral_stiffness']).toFixed(0) + ' lbs/in)')
 
   $('#sumStiffTorSI').html((Math.PI/180.*data['stiffness']['torsional_stiffness']).toFixed(0) + ' N/deg')
-  $('#sumStiffTorLbs').html((Math.PI/180.*0.224809*data['stiffness']['torsional_stiffness']).toFixed(0) + ' lbs/deg')
+  $('#sumStiffTorLbs').html('(' + (Math.PI/180.*0.224809*data['stiffness']['torsional_stiffness']).toFixed(0) + ' lbs/deg)')
 }
 
 calc_and_plot_tensions()
