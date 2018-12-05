@@ -544,7 +544,8 @@ function calc_and_show_summary() {
   // Build wheel JSON
   post_data = {
     'wheel': build_json_wheel(),
-    'mass': {'empty': 0}
+    'mass': {'empty': 0},
+    'stiffness': {'empty': 0}
   }
 
   console.log(post_data)
@@ -568,12 +569,22 @@ function calc_and_show_summary() {
 function show_summary(data) {
   console.log(data)
 
-  $('#sumMassGrams').html(Math.round(1000*data['mass']['mass']).toString() + ' grams')
+  // Mass properties
+  $('#sumMassGrams').html((1000*data['mass']['mass']).toFixed(0) + ' grams')
   $('#sumMassLbs').html('(' + (2.20462*data['mass']['mass']).toFixed(2) + ' lbs)')
 
   $('#sumMassRotGrams').html(Math.round(1000*data['mass']['mass_rotational']).toString() + ' grams')
   $('#sumMassRotLbs').html('(' + (2.20462*data['mass']['mass_rotational']).toFixed(2) + ' lbs)')
 
+  // Stiffness properties
+  $('#sumStiffRadSI').html((0.001*data['stiffness']['radial_stiffness']).toFixed(0) + ' N/mm')
+  $('#sumStiffRadLbs').html((0.224809*0.0254*data['stiffness']['radial_stiffness']).toFixed(0) + ' lbs/in')
+
+  $('#sumStiffLatSI').html((0.001*data['stiffness']['lateral_stiffness']).toFixed(1) + ' N/mm')
+  $('#sumStiffLatLbs').html((0.224809*0.0254*data['stiffness']['lateral_stiffness']).toFixed(0) + ' lbs/in')
+
+  $('#sumStiffTorSI').html((Math.PI/180.*data['stiffness']['torsional_stiffness']).toFixed(0) + ' N/deg')
+  $('#sumStiffTorLbs').html((Math.PI/180.*0.224809*data['stiffness']['torsional_stiffness']).toFixed(0) + ' lbs/deg')
 }
 
 calc_and_plot_tensions()
