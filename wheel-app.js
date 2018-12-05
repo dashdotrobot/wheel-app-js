@@ -238,6 +238,9 @@ $('.spokes-ds').on('change', function() {
   }
 })
 
+// Set default spoke material
+$('#spkMatl').val('Steel').trigger('change')
+
 // Set spoke tension based on tension ratio
 $('#spkTens').on('change mousemove', function() {
   var T_ratio = calc_tension_ratio()
@@ -456,6 +459,7 @@ function plot_tensions(data) {
 
   theta = data['tension']['spokes'].slice()
   tension = data['tension']['tension'].slice()
+  tension_0 = data['tension']['tension_initial'].slice()
 
   for (var i=0; i<theta.length; i++) {
   	theta[i] *= 360./parseFloat($('#spkNum').val());
@@ -464,9 +468,11 @@ function plot_tensions(data) {
   if (true) {  // Separate traces for left and right spokes
     theta_nds = theta.filter((e, i) => {return i%2 === 0})
     T_nds = tension.filter((e, i) => {return i%2 === 0})
+    T_0_nds = tension_0.filter((e, i) => {return i%2 === 0})
 
     theta_ds = theta.filter((e, i) => {return i%2 === 1})
     T_ds = tension.filter((e, i) => {return i%2 === 1})
+    T_0_ds = tension_0.filter((e, i) => {return i%2 === 1})
 
     traces = [
       {
@@ -474,12 +480,34 @@ function plot_tensions(data) {
         r: T_nds.concat(T_nds[0]),
         theta: theta_nds.concat(theta_nds[0]),
         type: 'scatterpolar',
+        mode: 'lines+markers',
+        line: {color: '#1f77b4'}
+      },
+      {
+        r: T_0_nds.concat(T_0_nds[0]),
+        theta: theta_nds.concat(theta_nds[0]),
+        type: 'scatterpolar',
+        mode: 'lines',
+        showlegend: false,
+        line: {color: '#1f77b4', shape: 'spline'},
+        opacity: 0.5
       },
       {
         name: 'Drive-side spokes',
         r: T_ds.concat(T_ds[0]),
         theta: theta_ds.concat(theta_ds[0]),
         type: 'scatterpolar',
+        mode: 'lines+markers',
+        line: {color: '#ff7f0e'}
+      },
+      {
+        r: T_0_ds.concat(T_0_ds[0]),
+        theta: theta_ds.concat(theta_ds[0]),
+        type: 'scatterpolar',
+        mode: 'lines',
+        showlegend: false,
+        line: {color: '#ff7f0e', shape: 'spline'},
+        opacity: 0.5
       }
     ]
   }
